@@ -33,6 +33,9 @@ dependencies:
 
   # Local cache
   shared_preferences: ^2.1.1
+
+  dartz: ^0.10.1
+  sqflite: ^2.2.8+4
   
 
 
