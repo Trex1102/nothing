@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:nothing/features/add_expense/domain/entities/category_entity.dart';
 import '/core/error/failure.dart';
 import '../../domain/entities/expense_entity.dart';
 import '../../domain/repositories/expense_repository.dart';
@@ -17,7 +18,7 @@ class CreateExpense {
     required TimeOfDay time,
     required String note,
     required WeatherType weather,
-    required Category category,
+    required CategoryEntity category,
   }) async {
     final expense = ExpenseEntity(
       id: '', // Generate or assign a unique ID
@@ -30,6 +31,7 @@ class CreateExpense {
       category: category,
     );
 
-    return repository.createExpense(expense);
+    await repository.createExpense(expense);
+    return const Right(null);
   }
 }

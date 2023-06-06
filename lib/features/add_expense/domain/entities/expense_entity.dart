@@ -1,5 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:nothing/features/add_expense/domain/entities/category_entity.dart';
 
 enum WeatherType { sunny, rainy, cloudy, snowy, cold }
 
@@ -11,7 +11,7 @@ class ExpenseEntity {
   final TimeOfDay time;
   final String note;
   final WeatherType weather;
-  final Category category;
+  final CategoryEntity  category;
 
   ExpenseEntity({
     required this.id,
@@ -32,7 +32,7 @@ class ExpenseEntity {
     TimeOfDay? time,
     String? note,
     WeatherType? weather,
-    Category? category,
+    CategoryEntity? category,
   }) {
     return ExpenseEntity(
       id: id ?? this.id,

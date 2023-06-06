@@ -1,5 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:nothing/features/add_expense/domain/entities/category_entity.dart';
 import '../../domain/entities/expense_entity.dart';
 
 
@@ -11,7 +11,7 @@ class ExpenseModel {
   final TimeOfDay time;
   final String note;
   final WeatherType weather;
-  final Category category;
+  final CategoryEntity category;
 
   ExpenseModel({
     required this.id,
