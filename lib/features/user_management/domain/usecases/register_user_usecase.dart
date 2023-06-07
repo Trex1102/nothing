@@ -2,14 +2,14 @@ import 'package:nothing/features/user_management/domain/entities/user_entity.dar
 import 'package:nothing/features/user_management/domain/repositories/user_repository.dart';
 
 import 'package:dartz/dartz.dart';
-import '/core/error/failure.dart';
+import '/core/error/failures.dart';
 
 class RegisterUserUseCase {
   final UserRepository userRepository;
 
   RegisterUserUseCase(this.userRepository);
 
-  Future<Either<Failure, void>> call({
+  Future<Either<Failures, void>> call({
     required String username,
     required String email,
     required String password,
@@ -27,7 +27,7 @@ class RegisterUserUseCase {
       await userRepository.registerUser(newUser);
       return Right(null);
     } catch (e) {
-      return Left(Failure('Failed to register user.'));
+      return Left(Failures('Failed to register user.'));
     }
   }
 
