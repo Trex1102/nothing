@@ -11,7 +11,7 @@ import '../../features/add_expense/data/repositories/expense_repository_impl.dar
 import '../../features/add_expense/domain/entities/expense_entity.dart';
 import '../../features/add_expense/domain/repositories/expense_repository.dart';
 import '../../features/add_expense/domain/usecases/create_expense.dart';
-import 'core/database/database_initializer.dart';
+import '../database/database_initializer.dart';
 
 void main() async {
 
@@ -48,12 +48,10 @@ void main() async {
     time: TimeOfDay.now(),
     note: 'Expense note',
     weather: WeatherType.sunny,
-    category: predefinedCategories[0],
+    category: CategoryEntity(id : '1' , name: 'Food', color: 'Blue', icon:  Icons.fastfood),
   ).then((result) {
     result.fold(
-      // ignore: avoid_print
       (failure) => print('Expense creation failed: $failure'),
-      // ignore: avoid_print
       (voidResult) => print('Expense created successfully'),
     );
   });

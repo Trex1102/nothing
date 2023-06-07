@@ -34,11 +34,11 @@ dependencies:
   # Local cache
   shared_preferences: ^2.1.1
 
-  path: ^1.8.3
-  sqflite: ^2.2.8+4
   dartz: ^0.10.1
+  sqflite: ^2.2.8+4
+
   test: ^1.23.0
-  
+  uuid: ^3.0.7
 
 
 dev_dependencies:
