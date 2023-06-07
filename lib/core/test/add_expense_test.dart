@@ -12,11 +12,14 @@ import '../../features/add_expense/data/repositories/expense_repository_impl.dar
 import '../../features/add_expense/domain/entities/expense_entity.dart';
 import '../../features/add_expense/domain/repositories/expense_repository.dart';
 import '../../features/add_expense/domain/usecases/create_expense.dart';
+import '../database/database_initializer.dart';
 
 void main() async {
 
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  final database = await DatabaseInitializer.initDatabase();
 
   Connectivity connectivity = Connectivity();
 
