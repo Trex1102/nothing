@@ -2,14 +2,14 @@ import 'package:nothing/features/user_management/data/models/user_model.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../../../core/error/exceptions.dart' as exceptions;
 
-class UserDatabase {
-  final Database userDatabase;
+class LocalStorage {
+  final Database database;
 
-  UserDatabase(this.userDatabase);
+  LocalStorage(this.database);
 
   Future<void> registerUser(UserModel user) async {
     try {
-      await userDatabase.insert('userTable', user.toJson());
+      await database.insert('userTable', user.toJson());
     } catch (e) {
       throw exceptions.DatabaseException('Error Message');
     }
@@ -17,7 +17,7 @@ class UserDatabase {
 
 Future<UserModel> loginUser(String email, String password) async {
     try {
-      final List<Map<String, dynamic>> userMaps = await userDatabase.query(
+      final List<Map<String, dynamic>> userMaps = await database.query(
         'userTable',
         where: 'email = ? AND password = ?',
         whereArgs: [email, password],
