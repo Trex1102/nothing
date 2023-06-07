@@ -3,18 +3,18 @@ import 'package:nothing/features/user_management/data/models/user_model.dart';
 import 'package:nothing/features/user_management/data/datasources/user_database.dart';
 
 class UserDataSourceImpl implements UserDataSource {
-  final UserDatabase userDatabase;
+  final LocalStorage localStorage;
 
-  UserDataSourceImpl(this.userDatabase);
+  UserDataSourceImpl(this.localStorage);
 
   @override
   Future<void> registerUser(UserModel userModel) async {
-    await userDatabase.registerUser(userModel);
+    await localStorage.registerUser(userModel);
   }
 
   @override
   Future<UserModel?> loginUser(String email, String password) async {
 
-    return await userDatabase.loginUser(email, password);
+    return await localStorage.loginUser(email, password);
   }
 }
