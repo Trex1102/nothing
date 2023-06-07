@@ -1,10 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:nothing/features/add_expense/domain/entities/category_entity.dart';
 import '/core/error/failure.dart';
 import '../../domain/entities/expense_entity.dart';
 import '../../domain/repositories/expense_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class CreateExpense {
   final ExpenseRepository repository;
@@ -20,8 +20,9 @@ class CreateExpense {
     required WeatherType weather,
     required CategoryEntity category,
   }) async {
+    final uuid = Uuid();
     final expense = ExpenseEntity(
-      id: '', // Generate or assign a unique ID
+      id: uuid.v4(), // Generate or assign a unique ID
       userId: userId,
       amount: amount,
       date: date,

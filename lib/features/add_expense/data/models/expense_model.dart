@@ -10,8 +10,8 @@ class ExpenseModel {
   final DateTime date;
   final TimeOfDay time;
   final String note;
-  final WeatherType weather;
-  final CategoryEntity category;
+  final String weather;
+  final String categoryId;
 
   ExpenseModel({
     required this.id,
@@ -21,7 +21,7 @@ class ExpenseModel {
     required this.time,
     required this.note,
     required this.weather,
-    required this.category,
+    required this.categoryId,
   });
 
   factory ExpenseModel.fromJson(Map<String, dynamic> json) {
@@ -33,7 +33,7 @@ class ExpenseModel {
       time: TimeOfDay.fromDateTime(DateTime.parse(json['time'])),
       note: json['note'],
       weather: json['weather'],
-      category: json['category'],
+      categoryId: json['categoryId'],
     );
   }
 
@@ -46,7 +46,7 @@ class ExpenseModel {
       'time': '${time.hour}:${time.minute}',
       'note': note,
       'weather': weather,
-      'category': category,
+      'categoryId': categoryId,
     };
   }
 
@@ -59,8 +59,8 @@ class ExpenseModel {
       date: entity.date,
       time: entity.time,
       note: entity.note,
-      weather: entity.weather,
-      category: entity.category,
+      weather: _getStringFromWeatherType(entity.weather),
+      categoryId: entity.category.id,
     );
   }
 
@@ -72,11 +72,14 @@ class ExpenseModel {
       date: date,
       time: time,
       note: note,
-      weather: weather,
-      category: category,
+      weather: _getWeatherTypeFromString(weather),
+      category: _getCategoryFromId(categoryId),
     );
   }
-
+  
+  static CategoryEntity _getCategoryFromId(String categoryId) {
+    return predefinedCategories.firstWhere((category) => category.id == categoryId);
+  }
 
   static WeatherType _getWeatherTypeFromString(String weatherString) {
     switch (weatherString) {

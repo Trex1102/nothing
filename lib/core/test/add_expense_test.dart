@@ -13,11 +13,10 @@ import '../../features/add_expense/domain/entities/expense_entity.dart';
 import '../../features/add_expense/domain/repositories/expense_repository.dart';
 import '../../features/add_expense/domain/usecases/create_expense.dart';
 
-void main() {
+void main() async {
 
 
-  // Create an instance of Database
-  Database database = sqflite.Database();
+  WidgetsFlutterBinding.ensureInitialized();
 
   Connectivity connectivity = Connectivity();
 

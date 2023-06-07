@@ -11,7 +11,7 @@ class ExpenseEntity {
   final TimeOfDay time;
   final String note;
   final WeatherType weather;
-  final CategoryEntity  category;
+  final CategoryEntity category;
 
   ExpenseEntity({
     required this.id,
