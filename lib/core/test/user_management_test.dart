@@ -1,44 +1,67 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
+import 'package:nothing/core/error/exceptions.dart';
+import 'package:nothing/core/network/network_info_impl.dart';
+import 'package:test/expect.dart';
+import '../../core/database/database_initializer.dart';
 
+import 'package:nothing/features/user_management/data/datasources/user_datasource_impl.dart';
+import 'package:nothing/features/user_management/data/repositories/user_repository_impl.dart';
+import 'package:nothing/features/user_management/domain/repositories/user_repository.dart';
+import 'package:nothing/features/user_management/domain/usecases/register_user_usecase.dart';
+import 'package:nothing/features/user_management/domain/usecases/login_user_usecase.dart';
+import 'package:nothing/features/user_management/data/datasources/local_database.dart';
 
-// import 'package:test/test.dart';
-// import 'package:sqflite/sqflite.dart';
-// import 'package:path/path.dart';
-// import '../../features/user_management/data/datasources/local_database.dart'; // Replace with the actual path to your UserDatabase file
-// import '../../features/user_management/data/models/user_model.dart'; // Replace with the actual path to your UserModel file
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-// void main() {
-//   late LocalStorage userDatabase;
-//   late Database database;
+  // Initialize the database
+  final database = await DatabaseInitializer.initDatabase();
 
-//   setUp(() async {
-//     final dbPath = await getDatabasesPath();
-//     final databasePath = join(dbPath, 'test.db');
-//     database = await openDatabase(databasePath, version: 1,
-//         onCreate: (Database db, int version) async {
-//       await db.execute('CREATE TABLE userTable (id INTEGER PRIMARY KEY, '
-//           'username TEXT, password TEXT)');
-//     });
-//     userDatabase = LocalStorage(database);
-//   });
+  Connectivity connectivity = Connectivity();
 
-//   tearDown(() async {
-//     await database.close();
-//   });
+  // Create an instance of LocalStorage
+  LocalStorage localStorage = LocalStorage(database);
 
-//   test('User Registration and Login Test', () async {
-//     // Register a user
-//     final user = UserModel(id: 1, username: 'john', password: 'password123');
-//     await userDatabase.registerUser(user);
+  // Create an instance of the UserDataSource
+  UserDataSourceImpl userDataSource = UserDataSourceImpl(localStorage);
 
-//     // Login with valid credentials
-//     final loggedInUser = await userDatabase.loginUser('john', 'password123');
-//     expect(loggedInUser, isNotNull);
-//     expect(loggedInUser?.id, equals(user.id));
-//     expect(loggedInUser?.username, equals(user.username));
-//     expect(loggedInUser?.password, equals(user.password));
+  // Create an instance of the NetworkInfo
+  NetworkInfoImpl networkInfo = NetworkInfoImpl(connectivity);
 
-//     // Login with invalid credentials
-//     final invalidUser = await userDatabase.loginUser('john', 'wrongpassword');
-//     expect(invalidUser, isNull);
-//   });
-// }
+  // Create an instance of the ExpenseRepository
+  UserRepository userRepository = UserRepositoryImpl(
+    userDataSource: userDataSource,
+    networkInfo: networkInfo,
+  );
+
+  // Create the use cases
+  RegisterUserUseCase registerUserUseCase = RegisterUserUseCase(userRepository);
+  // Test the RegisterUserUseCase
+  await registerUserUseCase
+      .call(
+    username: 'ibasa',
+    email: 'ii@example.com',
+    password: 'pass123',
+  )
+      .then((result) {
+    result.fold(
+      (failure) => print('User registration failed: $failure'),
+      (_) => print('User registered successfully'),
+    );
+  });
+
+  LoginUserUseCase loginUserUseCase = LoginUserUseCase(userRepository);
+  final email = 'ii@example.com';
+  final password = 'pass123';
+  // Test the LoginUserUseCase
+  await loginUserUseCase.call(
+    email,
+    password
+  ).then((result) {
+    result.fold(
+      (failure) => print('User login failed: $failure'),
+      (user) => print('User logged in successfully: ${user.username}'),
+    );
+  });
+}
