@@ -27,6 +27,17 @@ class DatabaseInitializer {
             password TEXT
           )
         ''');
+        await db.execute('''
+          CREATE TABLE incomes(
+            id TEXT PRIMARY KEY,
+            userId TEXT,
+            amount REAL,
+            date INTEGER,
+            time TEXT,
+            note TEXT,
+            categoryId TEXT
+            )
+        ''');
       },
     );
     return database;
@@ -35,5 +46,6 @@ class DatabaseInitializer {
   static Future<void> clearDatabase(Database database) async {
     await database.delete('expenses');
     await database.delete('users');
+    await database.delete('incomes');
   }
 }

@@ -5,4 +5,5 @@ abstract class ExpenseDataSource {
   Future<List<ExpenseModel>> getExpensesByUser(String userId);
   Future<void> updateExpense(ExpenseModel expense);
   Future<void> deleteExpense(String id);
+  Future<ExpenseModel> getExpenseById(String expenseId);
 }
