@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nothing/features/add_expense/domain/entities/category_entity.dart';
 import '../../domain/entities/expense_entity.dart';
 
@@ -7,8 +8,8 @@ class ExpenseModel {
   final String id;
   final String userId;
   final double amount;
-  final DateTime date;
-  final TimeOfDay time;
+  final String date;
+  final String time;
   final String note;
   final String weather;
   final String categoryId;
@@ -29,8 +30,8 @@ class ExpenseModel {
       id: json['id'],
       userId: json['userId'],
       amount: json['amount'],
-      date: DateTime.parse(json['date']),
-      time: TimeOfDay.fromDateTime(DateTime.parse(json['time'])),
+      date: (json['date']),
+      time: (json['time']),
       note: json['note'],
       weather: json['weather'],
       categoryId: json['categoryId'],
@@ -42,8 +43,8 @@ class ExpenseModel {
       'id': id,
       'userId': userId,
       'amount': amount,
-      'date': date.toIso8601String(),
-      'time': '${time.hour}:${time.minute}',
+      'date': date,
+      'time': time,
       'note': note,
       'weather': weather,
       'categoryId': categoryId,
@@ -56,8 +57,8 @@ class ExpenseModel {
       id: entity.id,
       userId: entity.userId,
       amount: entity.amount,
-      date: entity.date,
-      time: entity.time,
+      date: _getStringFromDateTime(entity.date) ,
+      time: _getStringFromTime(entity.time),
       note: entity.note,
       weather: _getStringFromWeatherType(entity.weather),
       categoryId: entity.category.id,
@@ -69,14 +70,31 @@ class ExpenseModel {
       id: id,
       userId: userId,
       amount: amount,
-      date: date,
-      time: time,
+      date: _getDateTimeFromString(date),
+      time: _getTimeFromString(time),
       note: note,
       weather: _getWeatherTypeFromString(weather),
       category: _getCategoryFromId(categoryId),
     );
   }
   
+  static DateTime _getDateTimeFromString(String dateString) {
+    return DateFormat('yyyy-MM-dd').parse(dateString);
+  }
+
+  static String _getStringFromDateTime(DateTime dateTime) {
+    return DateFormat('yyyy-MM-dd').format(dateTime);
+  }
+
+  static TimeOfDay _getTimeFromString(String timeString) {
+    final time = timeString.split(':');
+    return TimeOfDay(hour: int.parse(time[0]), minute: int.parse(time[1]));
+  }
+
+  static String _getStringFromTime(TimeOfDay time) {
+    return '${time.hour}:${time.minute}';
+  }
+
   static CategoryEntity _getCategoryFromId(String categoryId) {
     return predefinedCategories.firstWhere((category) => category.id == categoryId);
   }

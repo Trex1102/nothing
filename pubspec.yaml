@@ -39,6 +39,7 @@ dependencies:
 
   test: ^1.23.0
   uuid: ^3.0.7
+  sqflite_common_ffi: ^2.2.5
 
 
 dev_dependencies:
