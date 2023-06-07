@@ -1,5 +1,6 @@
-import '../../data/models/expense_model.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../../data/models/expense_model.dart';
 import '../../../../core/error/exceptions.dart' as exceptions;
 
 class LocalStorage {
@@ -11,6 +12,7 @@ class LocalStorage {
     try {
       await database.insert('expenses', expense.toJson());
     } catch (e) {
+      print('DatabaseException: $e');
       throw exceptions.DatabaseException('Error Message');
     }
   }
@@ -24,6 +26,7 @@ class LocalStorage {
       );
       return expenseMaps.map((map) => ExpenseModel.fromJson(map)).toList();
     } catch (e) {
+      print('DatabaseException: $e');
       throw exceptions.DatabaseException('Error Message');
     }
   }
@@ -37,6 +40,7 @@ class LocalStorage {
         whereArgs: [expense.id],
       );
     } catch (e) {
+      print('DatabaseException: $e');
       throw exceptions.DatabaseException('Error Message');
     }
   }
@@ -49,6 +53,7 @@ class LocalStorage {
         whereArgs: [id],
       );
     } catch (e) {
+      print('DatabaseException: $e');
       throw exceptions.DatabaseException('Error Message');
     }
   }
