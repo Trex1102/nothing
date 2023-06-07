@@ -9,7 +9,7 @@ class LocalStorage {
 
   Future<void> registerUser(UserModel user) async {
     try {
-      await database.insert('userTable', user.toJson());
+      await database.insert('users', user.toJson());
     } catch (e) {
       throw exceptions.DatabaseException('Error Message');
     }
@@ -18,7 +18,7 @@ class LocalStorage {
 Future<UserModel> loginUser(String email, String password) async {
     try {
       final List<Map<String, dynamic>> userMaps = await database.query(
-        'userTable',
+        'users',
         where: 'email = ? AND password = ?',
         whereArgs: [email, password],
       );

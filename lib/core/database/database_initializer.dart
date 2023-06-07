@@ -19,7 +19,17 @@ class DatabaseInitializer {
             weather TEXT,
             categoryId TEXT
           )
-        ''');
+        '''
+          );
+        await db.execute('''
+          CREATE TABLE users (
+            id TEXT PRIMARY KEY,
+            username TEXT,
+            email TEXT,
+            password TEXT
+          )
+        '''
+          );
 
       },
     );
