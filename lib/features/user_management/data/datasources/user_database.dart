@@ -1,59 +1,30 @@
-//local
-
-import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart' as path;
 import 'package:nothing/features/user_management/data/models/user_model.dart';
+import 'package:sqflite/sqflite.dart';
+import '../../../../core/error/exceptions.dart' as exceptions;
 
 class UserDatabase {
-  static final UserDatabase instance = UserDatabase._init();
+  final Database userDatabase;
 
-  static Database? _database;
+  UserDatabase(this.userDatabase);
 
-  UserDatabase._init();
-
-  Future<Database> get database async {
-    if (_database != null) return _database!;
-    _database = await _initDB('user_database.db');
-    return _database!;
+  Future<void> registerUser(UserModel user) async {
+    try {
+      await userDatabase.insert('userTable', user.toJson());
+    } catch (e) {
+      throw exceptions.DatabaseException('Error Message');
+    }
   }
 
-  Future<Database> _initDB(String dbName) async {
-    final dbPath = await getDatabasesPath();
-    final pathToDb = path.join(dbPath, dbName);
-    return await openDatabase(
-      pathToDb,
-      version: 1,
-      onCreate: _createDB,
-    );
+Future<UserModel> loginUser(String email, String password) async {
+    try {
+      final List<Map<String, dynamic>> userMaps = await userDatabase.query(
+        'userTable',
+        where: 'email = ? AND password = ?',
+        whereArgs: [email, password],
+      );
+      return UserModel.fromJson(userMaps.first);
+    } catch (e) {
+      throw exceptions.DatabaseException('Error Message');
+    }
   }
-
-  Future<void> _createDB(Database db, int version) async {
-    await db.execute('''
-      CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        email TEXT NOT NULL UNIQUE,
-        password TEXT NOT NULL,
-        username TEXT NOT NULL
-      )
-    ''');
-  }
-
-  Future<int> insertUser(UserModel userModel) async {
-    final db = await instance.database;
-    return await db.insert(
-      'users',
-      userModel.toJson(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
-  // Future<void> updateUser(UserModel userModel) async {
-  //   final db = await instance.database;
-  //   await db.update(
-  //     'users',
-  //     userModel.toJson(),
-  //     where: 'id = ?',
-  //     whereArgs: [userModel.id],
-  //   );
-  // }
 }
