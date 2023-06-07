@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nothing/features/add_expense/domain/entities/category_entity.dart';
+import 'package:nothing/features/expense_management/add_expense/domain/entities/category_entity.dart';
 
 enum WeatherType { sunny, rainy, cloudy, snowy, cold }
 

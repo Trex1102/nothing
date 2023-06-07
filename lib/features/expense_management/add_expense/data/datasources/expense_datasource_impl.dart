@@ -1,6 +1,6 @@
 import '../datasources/expense_datasource.dart';
 import '../models/expense_model.dart';
-import '../../../../core/error/exceptions.dart';
+import '/../../../core/error/exceptions.dart';
 import '../../data/datasources/local_storage.dart';
 
 class ExpenseDataSourceImpl implements ExpenseDataSource {

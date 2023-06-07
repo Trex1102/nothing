@@ -1,15 +1,15 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:nothing/core/network/network_info_impl.dart';
-import 'package:nothing/features/add_expense/data/datasources/expense_datasource_impl.dart';
-import 'package:nothing/features/add_expense/domain/entities/category_entity.dart';
+import 'package:nothing/features/expense_management/add_expense/data/datasources/expense_datasource_impl.dart';
+import 'package:nothing/features/expense_management/add_expense/domain/entities/category_entity.dart';
 import 'package:nothing/core/database/database_initializer.dart';
 
-import '../../features/add_expense/data/datasources/local_storage.dart';
-import '../../features/add_expense/data/repositories/expense_repository_impl.dart';
-import '../../features/add_expense/domain/entities/expense_entity.dart';
-import '../../features/add_expense/domain/repositories/expense_repository.dart';
-import '../../features/add_expense/domain/usecases/create_expense.dart';
+import '../../features/expense_management/add_expense/data/datasources/local_storage.dart';
+import '../../features/expense_management/add_expense/data/repositories/expense_repository_impl.dart';
+import '../../features/expense_management/add_expense/domain/entities/expense_entity.dart';
+import '../../features/expense_management/add_expense/domain/repositories/expense_repository.dart';
+import '../../features/expense_management/add_expense/domain/usecases/create_expense.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

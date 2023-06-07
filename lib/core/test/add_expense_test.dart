@@ -56,7 +56,7 @@ void main() async {
   });
 
   // Fetch and display the expenses for a specific user from the database
-  final userId = 'user123'; // Replace with the desired user ID
+  const userId = 'user123'; // Replace with the desired user ID
   try {
     final expenses = await expenseDataSource.getExpensesByUser(userId);
     print('Expenses for user $userId:');

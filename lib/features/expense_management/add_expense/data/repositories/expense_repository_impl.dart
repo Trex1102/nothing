@@ -3,8 +3,8 @@ import '../../data/datasources/expense_datasource.dart';
 import '../../data/models/expense_model.dart';
 import '../../domain/entities/expense_entity.dart';
 import '../../domain/repositories/expense_repository.dart';
-import '../../../../core/error/exceptions.dart';
-import '../../../../core/network/network_info.dart';
+import '/../../../core/error/exceptions.dart';
+import '/../../../core/network/network_info.dart';
 
 class ExpenseRepositoryImpl implements ExpenseRepository {
   final ExpenseDataSource expenseDataSource;

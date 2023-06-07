@@ -1,4 +1,4 @@
-import 'package:nothing/features/add_expense/domain/entities/category_entity.dart';
+import 'package:nothing/features/expense_management/add_expense/domain/entities/category_entity.dart';
 import '/core/error/failure.dart';
 import '../../domain/entities/expense_entity.dart';
 import '../../domain/repositories/expense_repository.dart';

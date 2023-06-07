@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 
 import '../../data/models/expense_model.dart';
-import '../../../../core/error/exceptions.dart' as exceptions;
+import '/../../../core/error/exceptions.dart' as exceptions;
 
 class LocalStorage {
   final Database database;

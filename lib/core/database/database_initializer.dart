@@ -7,7 +7,6 @@ class DatabaseInitializer {
       '$databasePath/nothing_test.db',
       version: 1,
       onCreate: (db, version) async {
-        
         await db.execute('''
           CREATE TABLE expenses (
             id TEXT PRIMARY KEY,
@@ -19,8 +18,7 @@ class DatabaseInitializer {
             weather TEXT,
             categoryId TEXT
           )
-        '''
-          );
+        ''');
         await db.execute('''
           CREATE TABLE users (
             id TEXT PRIMARY KEY,
@@ -28,12 +26,14 @@ class DatabaseInitializer {
             email TEXT,
             password TEXT
           )
-        '''
-          );
-
+        ''');
       },
     );
-
     return database;
+  }
+
+  static Future<void> clearDatabase(Database database) async {
+    await database.delete('expenses');
+    await database.delete('users');
   }
 }
