@@ -44,6 +44,20 @@ class ExpenseRepositoryImpl implements ExpenseRepository {
   }
 
   @override
+  Future<ExpenseEntity> getExpenseById(String expenseId) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final expenseModel = await expenseDataSource.getExpenseById(expenseId);
+        return expenseModel.toEntity();
+      } on DatabaseException {
+        throw RepositoryException();
+      }
+    } else {
+      throw NetworkException();
+    }
+  }
+
+  @override
   Future<void> updateExpense(ExpenseEntity expense) async {
     if (await networkInfo.isConnected) {
       try {

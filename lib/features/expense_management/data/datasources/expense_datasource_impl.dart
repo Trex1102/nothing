@@ -29,6 +29,17 @@ class ExpenseDataSourceImpl implements ExpenseDataSource {
   }
 
   @override
+  Future<ExpenseModel> getExpenseById(String expenseId) async {
+    try {
+      return await localStorage.getExpenseById(expenseId);
+    } catch (e) {
+      print('Failed to fetch expenses by Id: $e');
+      throw DataSourceException();
+    }
+  }
+
+
+  @override
   Future<void> updateExpense(ExpenseModel expense) async {
     try {
       await localStorage.updateExpense(expense);

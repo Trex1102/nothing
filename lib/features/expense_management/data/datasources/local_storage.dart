@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 
 import '../../data/models/expense_model.dart';
-import '/../../../core/error/exceptions.dart' as exceptions;
+import 'package:nothing/core/error/exceptions.dart' as exceptions;
 
 class LocalStorage {
   final Database database;
@@ -25,6 +25,24 @@ class LocalStorage {
         whereArgs: [userId],
       );
       return expenseMaps.map((map) => ExpenseModel.fromJson(map)).toList();
+    } catch (e) {
+      print('DatabaseException: $e');
+      throw exceptions.DatabaseException('Error Message');
+    }
+  }
+
+  Future<ExpenseModel> getExpenseById(String expenseId) async {
+    try {
+      final List<Map<String, dynamic>> expenseMaps = await database.query(
+        'expenses',
+        where: 'id = ?',
+        whereArgs: [expenseId],
+      );
+      if (expenseMaps.isNotEmpty) {
+        return ExpenseModel.fromJson(expenseMaps.first);
+      } else {
+        throw exceptions.DatabaseException('Expense not found');
+      }
     } catch (e) {
       print('DatabaseException: $e');
       throw exceptions.DatabaseException('Error Message');
