@@ -2,10 +2,10 @@ import 'package:nothing/features/user_management/data/models/user_model.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../../../core/error/exceptions.dart' as exceptions;
 
-class LocalStorage {
+class UserLocalStorage {
   final Database database;
 
-  LocalStorage(this.database);
+  UserLocalStorage(this.database);
 
   Future<void> registerUser(UserModel user) async {
     try {

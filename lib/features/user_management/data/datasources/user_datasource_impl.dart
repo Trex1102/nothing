@@ -1,9 +1,9 @@
 import 'package:nothing/features/user_management/data/datasources/user_datasource.dart';
 import 'package:nothing/features/user_management/data/models/user_model.dart';
-import 'package:nothing/features/user_management/data/datasources/local_database.dart';
+import 'package:nothing/features/user_management/data/datasources/local_storage.dart';
 
 class UserDataSourceImpl implements UserDataSource {
-  final LocalStorage localStorage;
+  final UserLocalStorage localStorage;
 
   UserDataSourceImpl(this.localStorage);
 

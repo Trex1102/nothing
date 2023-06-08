@@ -25,9 +25,13 @@ Future<void> main() async {
 
   // Create an instance of LocalStorage
   LocalStorage localStorage = LocalStorage(database);
+  IncomeLocalStorage incomeLocalStorage = IncomeLocalStorage(database);
 
   // Create an instance of the ExpenseDataSource
   ExpenseDataSourceImpl expenseDataSource = ExpenseDataSourceImpl(localStorage);
+
+  IncomeDataSourceImpl incomeDataSource =
+      IncomeDataSourceImpl(incomeLocalStorage);
 
   // Create an instance of the NetworkInfo
   NetworkInfoImpl networkInfo = NetworkInfoImpl(connectivity);
@@ -45,7 +49,12 @@ class MyApp extends StatelessWidget {
 
   final ExpenseRepository expenseRepository;
 
-  MyApp({required this.expenseRepository});
+  // Create the use cases
+  CreateExpense createExpense = CreateExpense(expenseRepository);
+  GetExpensesByUser getExpensesByUser = GetExpensesByUser(expenseRepository);
+  DeleteExpense deleteExpense = DeleteExpense(expenseRepository);
+  UpdateExpense updateExpense = UpdateExpense(expenseRepository);
+  GetExpenseById getExpenseById = GetExpenseById(expenseRepository);
 
   @override
   Widget build(BuildContext context) {
@@ -134,5 +143,23 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
-  }
+
+    updateIncome.call(income: updatedIncome).then((result) {
+      result.fold(
+        (failure) => print('Failed to update income: $failure'),
+        (_) => print('Income updated successfully'),
+      );
+    });
+
+    // Test the DeleteIncome use case
+    String incomeId =
+        'income123'; // Replace with the ID of the income to be deleted
+
+    deleteIncome.call(incomeId).then((result) {
+      result.fold(
+        (failure) => print('Failed to delete income: $failure'),
+        (_) => print('Income deleted successfully'),
+      );
+    });
+  });
 }
