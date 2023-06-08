@@ -10,7 +10,8 @@ import 'package:nothing/features/user_management/data/repositories/user_reposito
 import 'package:nothing/features/user_management/domain/repositories/user_repository.dart';
 import 'package:nothing/features/user_management/domain/usecases/register_user_usecase.dart';
 import 'package:nothing/features/user_management/domain/usecases/login_user_usecase.dart';
-import 'package:nothing/features/user_management/data/datasources/local_database.dart';
+import 'package:nothing/features/user_management/data/datasources/local_storage.dart';
+import 'package:nothing/features/user_management/domain/entities/user_entity.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,7 @@ void main() async {
   Connectivity connectivity = Connectivity();
 
   // Create an instance of LocalStorage
-  LocalStorage localStorage = LocalStorage(database);
+  UserLocalStorage localStorage = UserLocalStorage(database);
 
   // Create an instance of the UserDataSource
   UserDataSourceImpl userDataSource = UserDataSourceImpl(localStorage);
@@ -29,7 +30,7 @@ void main() async {
   // Create an instance of the NetworkInfo
   NetworkInfoImpl networkInfo = NetworkInfoImpl(connectivity);
 
-  // Create an instance of the ExpenseRepository
+  // Create an instance of the UserRepository
   UserRepository userRepository = UserRepositoryImpl(
     userDataSource: userDataSource,
     networkInfo: networkInfo,

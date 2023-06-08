@@ -27,6 +27,15 @@ import 'package:nothing/features/income_management/domain/usecases/update_income
 import '../../features/income_management/data/datasources/local_storage.dart';
 import '../../features/income_management/domain/entities/income_entity.dart';
 
+
+import 'package:nothing/features/user_management/data/datasources/user_datasource_impl.dart';
+import 'package:nothing/features/user_management/data/repositories/user_repository_impl.dart';
+import 'package:nothing/features/user_management/domain/repositories/user_repository.dart';
+import 'package:nothing/features/user_management/domain/usecases/register_user_usecase.dart';
+import 'package:nothing/features/user_management/domain/usecases/login_user_usecase.dart';
+import 'package:nothing/features/user_management/data/datasources/local_storage.dart';
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -38,12 +47,15 @@ void main() async {
   // Create an instance of LocalStorage
   LocalStorage localStorage = LocalStorage(database);
   IncomeLocalStorage incomeLocalStorage = IncomeLocalStorage(database);
+  UserLocalStorage userlocalStorage = UserLocalStorage(database);
 
   // Create an instance of the ExpenseDataSource
   ExpenseDataSourceImpl expenseDataSource = ExpenseDataSourceImpl(localStorage);
 
   IncomeDataSourceImpl incomeDataSource =
       IncomeDataSourceImpl(incomeLocalStorage);
+
+  UserDataSourceImpl userDataSource = UserDataSourceImpl(userlocalStorage);
 
   // Create an instance of the NetworkInfo
   NetworkInfoImpl networkInfo = NetworkInfoImpl(connectivity);
@@ -56,6 +68,11 @@ void main() async {
 
   IncomeRepository incomeRepository = IncomeRepositoryImpl(
     incomeDataSource: incomeDataSource,
+    networkInfo: networkInfo,
+  );
+
+  UserRepository userRepository = UserRepositoryImpl(
+    userDataSource: userDataSource,
     networkInfo: networkInfo,
   );
 
@@ -230,4 +247,38 @@ void main() async {
       );
     });
   });
+
+
+  //user_manasgement test
+
+  // Create the use cases
+  RegisterUserUseCase registerUserUseCase = RegisterUserUseCase(userRepository);
+  // Test the RegisterUserUseCase
+  await registerUserUseCase
+      .call(
+    username: 'ibasa',
+    email: 'ii@example.com',
+    password: 'pass123',
+  )
+      .then((result) {
+    result.fold(
+      (failure) => print('User registration failed: $failure'),
+      (_) => print('User registered successfully'),
+    );
+  });
+
+  LoginUserUseCase loginUserUseCase = LoginUserUseCase(userRepository);
+  final email = 'ii@example.com';
+  final password = 'pass123';
+  // Test the LoginUserUseCase
+  await loginUserUseCase.call(
+    email,
+    password
+  ).then((result) {
+    result.fold(
+      (failure) => print('User login failed: $failure'),
+      (user) => print('User logged in successfully: ${user.username}'),
+    );
+  });
+
 }
