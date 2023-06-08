@@ -1,23 +1,29 @@
 part of 'add_expense_bloc.dart';
 
-abstract class AddExpenseState extends Equatable {
-  const AddExpenseState();
+enum AddExpenseStatus { initial, loading,  success, failure }
+
+class AddExpenseState extends Equatable {
+  const AddExpenseState({
+    this.status = AddExpenseStatus.initial,
+  });
+
+  final AddExpenseStatus status;
+
+  AddExpenseState copyWith({
+    AddExpenseStatus? status,
+    
+  }) {
+    return AddExpenseState(
+      status: status ?? this.status
+    );
+  }
+
+
 
   @override
-  List<Object> get props => [];
-}
-
-class AddExpenseInitial extends AddExpenseState {}
-
-class AddExpenseLoading extends AddExpenseState {}
-
-class AddExpenseSuccess extends AddExpenseState {}
-
-class AddExpenseFailure extends AddExpenseState {
-  final String error;
-
-  const AddExpenseFailure({required this.error});
+  String toString() => 'AddExpenseState { status: $status }';
 
   @override
-  List<Object> get props => [error];
+  List<Object> get props => [status];
+
 }

@@ -31,7 +31,7 @@ class LocalStorage {
     }
   }
 
-  Future<ExpenseModel> getExpenseById(String expenseId) async {
+  Future<ExpenseModel> getExpenseById(String? expenseId) async {
     try {
       final List<Map<String, dynamic>> expenseMaps = await database.query(
         'expenses',

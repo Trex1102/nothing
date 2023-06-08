@@ -10,6 +10,7 @@ import 'package:nothing/features/expense_management/domain/usecases/delete_expen
 import 'package:nothing/features/expense_management/domain/usecases/get_expenses_by_user.dart';
 import 'package:nothing/features/expense_management/domain/usecases/update_expense.dart';
 import 'package:nothing/features/expense_management/domain/usecases/get_expense_by_id.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../features/expense_management/data/datasources/local_storage.dart';
 import '../../features/expense_management/domain/entities/expense_entity.dart';
@@ -45,9 +46,12 @@ void main() async {
   UpdateExpense updateExpense = UpdateExpense(expenseRepository);
   GetExpenseById getExpenseById = GetExpenseById(expenseRepository);
 
+  final uuid = Uuid();
+
   // Test the CreateExpense use case
   createExpense
       .call(
+    id: uuid.v4(),
     userId: 'user123',
     amount: 50.0,
     date: DateTime.now(),
@@ -64,7 +68,7 @@ void main() async {
 
     // Test the ViewExpenseByUser use case
     // Test the ViewExpenseByUser use case
-    final userId = 'saikat'; // Replace with the desired user ID
+    final userId = 'user123'; // Replace with the desired user ID
     getExpensesByUser.call(userId: userId).then((result) {
       result.fold(
         (failure) => print('Failed to fetch expenses by user: $failure'),

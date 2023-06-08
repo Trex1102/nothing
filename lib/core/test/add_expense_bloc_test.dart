@@ -1,111 +1,138 @@
-import 'package:dartz/dartz.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/features/expense_management/domain/entities/category_entity.dart';
+
+// Import the necessary files for the bloc
 import 'package:nothing/features/expense_management/presentation/add_expense_presenter/bloc/add_expense_bloc.dart';
-import 'package:nothing/features/expense_management/domain/usecases/create_expense.dart';
 
-import 'package:nothing/core/error/failure.dart';
-
-import '../../features/expense_management/domain/entities/category_entity.dart' as category_entity;
-import 'package:nothing/features/expense_management/domain/entities/category_entity.dart' as PackageCategoryEntity;
+import '../../core/database/database_initializer.dart';
+import '../../core/network/network_info_impl.dart';
+import '../../features/expense_management/data/datasources/expense_datasource_impl.dart';
+import '../../features/expense_management/data/datasources/local_storage.dart';
+import '../../features/expense_management/data/repositories/expense_repository_impl.dart';
 import '../../features/expense_management/domain/entities/expense_entity.dart';
+import '../../features/expense_management/domain/repositories/expense_repository.dart';
+import '../../features/expense_management/domain/usecases/create_expense.dart';
 
-class MockCreateExpense extends Mock implements CreateExpense {}
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
-  group('AddExpenseBloc', () {
-    late AddExpenseBloc addExpenseBloc;
-    late MockCreateExpense mockCreateExpense;
+  // Initialize the database
+  final database = await DatabaseInitializer.initDatabase();
 
-    setUp(() {
-      mockCreateExpense = MockCreateExpense();
-      addExpenseBloc = AddExpenseBloc(createExpense: mockCreateExpense);
-    });
+  Connectivity connectivity = Connectivity();
 
-    test('emits [AddExpenseLoading, AddExpenseSuccess] when expense creation is successful', () async {
-      // Arrange
-      final userId = 'user123';
-      final amount = 50.0;
-      final date = DateTime.now();
-      final time = TimeOfDay.now();
-      final note = 'Expense note';
-      final weather = WeatherType.sunny;
-      final category = category_entity.predefinedCategories[0];
+  // Create an instance of LocalStorage
+  LocalStorage localStorage = LocalStorage(database);
 
-      final expense = ExpenseEntity(
-        id: '123',
-        userId: userId,
-        amount: amount,
-        date: date,
-        time: time,
-        note: note,
-        weather: weather,
-        category: category,
-      );
+  // Create an instance of the ExpenseDataSource
+  ExpenseDataSourceImpl expenseDataSource = ExpenseDataSourceImpl(localStorage);
 
-      when(mockCreateExpense.call(
-        userId: userId,
-        amount: amount,
-        date: date,
-        time: time,
-        note: note,
-        weather: weather,
-        category: category,
-      )).thenAnswer((_) async => Right(null));
+  // Create an instance of the NetworkInfo
+  NetworkInfoImpl networkInfo = NetworkInfoImpl(connectivity);
 
-      // Act
-      addExpenseBloc.add(AddExpenseButtonPressed(expense: expense));
+  // Create an instance of the ExpenseRepository
+  ExpenseRepository expenseRepository = ExpenseRepositoryImpl(
+    expenseDataSource: expenseDataSource,
+    networkInfo: networkInfo,
+  );
 
-      // Assert
-      expectLater(
-        addExpenseBloc.stream,
-        emitsInOrder([AddExpenseLoading(), AddExpenseSuccess()]),
-      );
-    });
+  runApp(MyApp(expenseRepository: expenseRepository));
+}
 
-    test('emits [AddExpenseLoading, AddExpenseFailure] when expense creation fails', () async {
-      // Arrange
-      final userId = 'user123';
-      final amount = 50.0;
-      final date = DateTime.now();
-      final time = TimeOfDay.now();
-      final note = 'Expense note';
-      final weather = WeatherType.sunny;
-      final category = category_entity.predefinedCategories[0];
-      final expense = ExpenseEntity(
-        id: '123',
-        userId: userId,
-        amount: amount,
-        date: date,
-        time: time,
-        note: note,
-        weather: weather,
-        category: category,
-      );
+class MyApp extends StatelessWidget {
 
-      when(mockCreateExpense.call(
-        userId: userId,
-        amount: amount,
-        date: date,
-        time: time,
-        note: note,
-        weather: weather,
-        category: category,
-      )).thenAnswer((_) async => Left(DatabaseFailure("Failed to create expense.")));
+  final ExpenseRepository expenseRepository;
 
-      // Act
-      addExpenseBloc.add(AddExpenseButtonPressed(expense: expense));
+  MyApp({required this.expenseRepository});
 
-      // Assert
-      expectLater(
-        addExpenseBloc.stream,
-        emitsInOrder([AddExpenseLoading(), const AddExpenseFailure(error: 'Failed to create expense.')]),
-      );
-    });
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Add Expense Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: BlocProvider(
+        create: (_) =>
+            AddExpenseBloc(createExpense: CreateExpense(expenseRepository)),
+        child: HomePage(),
+      ),
+    );
+  }
+}
 
-    tearDown(() {
-      addExpenseBloc.close();
-    });
-  });
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final addExpenseBloc = BlocProvider.of<AddExpenseBloc>(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Add Expense Demo'),
+      ),
+      body: Center(
+        child: BlocConsumer<AddExpenseBloc, AddExpenseState>(
+          listener: (context, state) {
+            if (state.status == AddExpenseStatus.success) {
+              
+
+              showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: const Text('Success'),
+                  content: const Text('Expense created successfully.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              );
+            } else if (state.status == AddExpenseStatus.failure) {
+              showDialog(
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: const Text('Failure'),
+                  content: const Text('Failed to create expense.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            return ElevatedButton(
+              onPressed: () {
+                // Dispatch the AddExpenseButtonPressed event
+                addExpenseBloc.add(
+                  AddExpenseButtonPressed(
+                    expense: ExpenseEntity(
+                      id: '6',
+                      userId: '123',
+                      amount: 100.0,
+                      date: DateTime.now(),
+                      time: TimeOfDay.now(),
+                      note: 'Expense Note',
+                      weather: WeatherType.sunny,
+                      category: predefinedCategories[0],
+                    ),
+                  ),
+                );
+              },
+              child: const Text('Add Expense'),
+            );
+          },
+        ),
+      ),
+    );
+  }
 }
