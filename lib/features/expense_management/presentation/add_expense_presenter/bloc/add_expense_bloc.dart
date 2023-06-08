@@ -20,7 +20,6 @@ class AddExpenseBloc extends Bloc<AddExpenseEvent, AddExpenseState> {
     AddExpenseButtonPressed event,
     Emitter<AddExpenseState> emit,
   ) async {
-    emit(state.copyWith(status: AddExpenseStatus.loading));
 
     try {
       final id = event.expense.id;

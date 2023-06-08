@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../../core/error/failure.dart';
 import '../entities/category_entity.dart';
@@ -22,9 +21,9 @@ class CreateExpense {
     required WeatherType weather,
     required CategoryEntity category,
   }) async {
-    //final uuid = Uuid();
+
     final expense = ExpenseEntity(
-      id: id, // Generate or assign a unique ID
+      id: id,
       userId: userId,
       amount: amount,
       date: date,

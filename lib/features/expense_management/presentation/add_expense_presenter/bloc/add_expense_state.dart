@@ -1,6 +1,6 @@
 part of 'add_expense_bloc.dart';
 
-enum AddExpenseStatus { initial, loading,  success, failure }
+enum AddExpenseStatus { initial, success, failure }
 
 class AddExpenseState extends Equatable {
   const AddExpenseState({

@@ -15,7 +15,7 @@ import '../../features/expense_management/domain/entities/expense_entity.dart';
 import '../../features/expense_management/domain/repositories/expense_repository.dart';
 import '../../features/expense_management/domain/usecases/create_expense.dart';
 import '../../features/expense_management/domain/usecases/delete_expense.dart';
-import 'features/expense_management/domain/entities/category_entity.dart';
+import '../../features/expense_management/domain/entities/category_entity.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
