@@ -17,32 +17,36 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<void> registerUser(UserEntity user) async {
     if (await networkInfo.isConnected) {
-      final userModel = UserModel(
-        id: user.id,
-        email: user.email,
-        password: user.password,
-        username: user.username,
-      );
-      return userDataSource.registerUser(userModel);
+      try {
+        final userModel = UserModel(
+          id: user.id,
+          email: user.email,
+          password: user.password,
+          username: user.username,
+        );
+        await userDataSource.registerUser(userModel);
+      } on DatabaseException {
+        throw RepositoryException();
+      }
     } else {
       throw NetworkException();
     }
   }
 
   @override
-  Future<UserEntity?> loginUser(String email, String password) async {
+  Future<UserEntity> loginUser(String email, String password) async {
     if (await networkInfo.isConnected) {
-      return userDataSource.loginUser(email, password).then((userModel) {
-        if (userModel != null) {
-          return UserEntity(
-            id: userModel.id,
-            email: userModel.email,
-            username: userModel.username,
-            password: userModel.password,
-          );
-        }
-        return null;
-      });
+      try {
+        final userModel = await userDataSource.loginUser(email, password);
+        return UserEntity(
+          id: userModel.id,
+          email: userModel.email,
+          username: userModel.username,
+          password: userModel.password,
+        );
+      } on DatabaseException {
+        throw RepositoryException();
+      }
     } else {
       throw NetworkException();
     }

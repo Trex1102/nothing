@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 class DatabaseInitializer {
   static Future<Database> initDatabase() async {
     final databasePath = await getDatabasesPath();
+    print('path : $databasePath');
     final database = await openDatabase(
       '$databasePath/nothing_test.db',
       version: 1,
