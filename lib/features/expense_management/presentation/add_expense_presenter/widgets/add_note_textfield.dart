@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AddNoteTextField extends StatelessWidget {
   final TextEditingController controller;
 
-  const AddNoteTextField({required this.controller});
+  const AddNoteTextField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
