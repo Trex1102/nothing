@@ -1,6 +1,7 @@
 import 'package:nothing/features/user_management/data/datasources/user_datasource.dart';
 import 'package:nothing/features/user_management/data/models/user_model.dart';
 import 'package:nothing/features/user_management/data/datasources/local_storage.dart';
+import '/../../../core/error/exceptions.dart';
 
 class UserDataSourceImpl implements UserDataSource {
   final UserLocalStorage localStorage;
@@ -9,12 +10,21 @@ class UserDataSourceImpl implements UserDataSource {
 
   @override
   Future<void> registerUser(UserModel userModel) async {
-    await localStorage.registerUser(userModel);
+    try {
+      await localStorage.registerUser(userModel);
+    } catch (e) {
+      print('Failed to create user: $e');
+      throw DataSourceException();
+    }
   }
 
   @override
-  Future<UserModel?> loginUser(String email, String password) async {
-
-    return await localStorage.loginUser(email, password);
+  Future<UserModel> loginUser(String email, String password) async {
+    try {
+      return await localStorage.loginUser(email, password);
+    } catch (e) {
+      print('Failed to find user: $e');
+      throw DataSourceException();
+    }
   }
 }

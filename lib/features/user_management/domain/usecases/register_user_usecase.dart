@@ -2,6 +2,7 @@ import 'package:nothing/features/user_management/domain/entities/user_entity.dar
 import 'package:nothing/features/user_management/domain/repositories/user_repository.dart';
 
 import 'package:dartz/dartz.dart';
+import 'package:uuid/uuid.dart';
 import '/core/error/failures.dart';
 
 class RegisterUserUseCase {
@@ -16,8 +17,9 @@ class RegisterUserUseCase {
   }) async {
     validateInputData(username, email, password);
 
+    final uuid = Uuid();
     final newUser = UserEntity(
-      id: '', //assign unique id
+      id: uuid.v4(), //assign unique id
       username: username,
       email: email,
       password: password,
