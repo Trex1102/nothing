@@ -4,7 +4,7 @@ import 'package:nothing/core/network/network_info_impl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/core/test/add_expense_bloc_test.dart';
 import 'package:nothing/features/user_management/domain/entities/user_entity.dart';
-import 'core/database/database_initializer.dart';
+
 
 // Import the necessary files for the bloc
 import 'package:nothing/features/user_management/presentation/register_presenter/bloc/register_presenter_bloc.dart';
@@ -16,7 +16,7 @@ import 'package:nothing/features/user_management/domain/usecases/register_user_u
 import 'package:nothing/features/user_management/domain/usecases/login_user_usecase.dart';
 import 'package:nothing/features/user_management/data/datasources/local_storage.dart';
 
-import 'features/user_management/presentation/login_presenter/bloc/login_presenter_bloc.dart';
+import '../database/database_initializer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,23 +77,16 @@ class MyApp extends StatelessWidget {
   MyApp({required this.userRepository});
 
   @override
-Widget build(BuildContext context) {
-  return MaterialApp(
-    title: 'demo',
-    home: MultiBlocProvider(
-      providers: [
-        BlocProvider<LoginBloc>(
-          create: (_) => LoginBloc(loginUserUseCase: LoginUserUseCase(userRepository)),
-        ),
-        BlocProvider<RegisterBloc>(
-          create: (_) => RegisterBloc(registerUserUseCase: RegisterUserUseCase(userRepository)),
-        ),
-      ],
-      child: HomePage(),
-    ),
-  );
-}
-
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'demo',
+      home: BlocProvider(
+        create: (_) => RegisterBloc(
+            registerUserUseCase: RegisterUserUseCase(userRepository)),
+        child: HomePage(),
+      ),
+    );
+  }
 }
 
 class HomePage extends StatelessWidget {
@@ -102,71 +95,16 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final registerBloc = BlocProvider.of<RegisterBloc>(context);
-    final loginBloc = BlocProvider.of<LoginBloc>(context);
 
     return Scaffold(
       body: Center(
-        child: Column(
-          children: [
-            BlocConsumer<RegisterBloc, RegisterState>(
-              listener: (context, state) {
-                if (state is RegisterSuccess) {
-                  showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                            title: Text('Reg success'),
-                            content: Text('suc'),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text('ok'),
-                              ),
-                            ],
-                          ));
-                } else if (state is RegisterFailure) {
-                  showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                            title: Text('Reg failed'),
-                            content: Text('ff'),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text('ok'),
-                              ),
-                            ],
-                          ));
-                }
-              },
-              builder: (context, state) {
-                return ElevatedButton(
-                  onPressed: () {
-                    registerBloc.add(
-                      RegisterButtonPressed(
-                        user: UserEntity(
-                          id: '1',
-                          username: 'ibasa',
-                          email: 'ii@example.com',
-                          password: 'pass123',
-                        ),
-                      ),
-                    );
-                  },
-                  child: const Text('Register'),
-                );
-              },
-            ),
-            BlocConsumer<LoginBloc, LoginState>(
+        child: BlocConsumer<RegisterBloc, RegisterState>(
           listener: (context, state) {
-            if (state is LoginSuccess) {
+            if (state is RegisterSuccess) {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                        title: Text('login success'),
+                        title: Text('Reg success'),
                         content: Text('suc'),
                         actions: [
                           TextButton(
@@ -177,11 +115,11 @@ class HomePage extends StatelessWidget {
                           ),
                         ],
                       ));
-            } else if (state is LoginFailure) {
+            } else if (state is RegisterFailure) {
               showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                        title: Text('login failed'),
+                        title: Text('Reg failed'),
                         content: Text('ff'),
                         actions: [
                           TextButton(
@@ -197,8 +135,8 @@ class HomePage extends StatelessWidget {
           builder: (context, state) {
             return ElevatedButton(
               onPressed: () {
-                loginBloc.add(
-                  LoginButtonPressed(
+                registerBloc.add(
+                  RegisterButtonPressed(
                     user: UserEntity(
                       id: '1',
                       username: 'ibasa',
@@ -208,64 +146,11 @@ class HomePage extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text('Login'),
+              child: const Text('Register'),
             );
           },
-        ),
-          ],
         ),
       ),
     );
   }
 }
-// import 'package:flutter/material.dart';
-
-// import 'features/expense_management/presentation/add_expense_presenter/widgets/show_amount_field.dart';
-
-// void main() {
-//   runApp(MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: Text('Show Amount Field Example'),
-//         ),
-//         body: Padding(
-//           padding: EdgeInsets.all(16),
-//           child: ShowAmountFieldWidget(),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class ShowAmountFieldWidget extends StatefulWidget {
-//   @override
-//   _ShowAmountFieldWidgetState createState() => _ShowAmountFieldWidgetState();
-// }
-
-// class _ShowAmountFieldWidgetState extends State<ShowAmountFieldWidget> {
-//   String amount = '100';
-//   String selectedCurrency = 'TK';
-//   List<String> currencyOptions = ['USD', 'EUR', 'GBP', 'TK'];
-
-//   void onCurrencyChanged(String? value) {
-//     setState(() {
-//       selectedCurrency = value ?? '';
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ShowAmountField(
-//       amount: amount,
-//       selectedCurrency: selectedCurrency,
-//       currencyOptions: currencyOptions,
-//       onCurrencyChanged: onCurrencyChanged,
-//     );
-//   }
-// }

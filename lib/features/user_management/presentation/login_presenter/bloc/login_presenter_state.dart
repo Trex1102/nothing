@@ -1,6 +1,23 @@
 part of 'login_presenter_bloc.dart';
 
-@immutable
-abstract class LoginPresenterState {}
+abstract class LoginState extends Equatable {
+  const LoginState();
 
-class LoginPresenterInitial extends LoginPresenterState {}
+  @override
+  List<Object> get props => [];
+}
+
+class LoginInitial extends LoginState {}
+
+class LoginLoading extends LoginState {}
+
+class LoginSuccess extends LoginState {}
+
+class LoginFailure extends LoginState {
+  final String errorMessage;
+
+  const LoginFailure(this.errorMessage);
+
+  @override
+  List<Object> get props => [errorMessage];
+}
