@@ -1,10 +1,10 @@
-import 'package:nothing/features/expense_management/domain/entities/category_entity.dart';
-import '/core/error/failure.dart';
-import '../../domain/entities/expense_entity.dart';
-import '../../domain/repositories/expense_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
+
+import '../../../../core/error/failure.dart';
+import '../entities/category_entity.dart';
+import '../entities/expense_entity.dart';
+import '../repositories/expense_repository.dart';
 
 class CreateExpense {
   final ExpenseRepository repository;
@@ -12,6 +12,7 @@ class CreateExpense {
   CreateExpense(this.repository);
 
   Future<Either<Failure, void>> call({
+    required String id,
     required String userId,
     required double amount,
     required DateTime date,
@@ -20,9 +21,9 @@ class CreateExpense {
     required WeatherType weather,
     required CategoryEntity category,
   }) async {
-    final uuid = Uuid();
+
     final expense = ExpenseEntity(
-      id: uuid.v4(), // Generate or assign a unique ID
+      id: id,
       userId: userId,
       amount: amount,
       date: date,
@@ -32,7 +33,11 @@ class CreateExpense {
       category: category,
     );
 
-    await repository.createExpense(expense);
-    return const Right(null);
+    try {
+      await repository.createExpense(expense);
+      return Right(null); // Return Right indicating success with a null value
+    } catch (e) {
+      return Left(DatabaseFailure("Failed to create expense.")); // Return Left with a Failure object in case of failure
+    }
   }
 }

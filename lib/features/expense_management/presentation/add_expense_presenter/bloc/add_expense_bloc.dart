@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:nothing/features/expense_management/domain/entities/expense_entity.dart';
@@ -10,39 +9,46 @@ part 'add_expense_state.dart';
 class AddExpenseBloc extends Bloc<AddExpenseEvent, AddExpenseState> {
   final CreateExpense createExpense;
 
-  AddExpenseBloc({required this.createExpense}) : super(AddExpenseInitial());
+  AddExpenseBloc({required this.createExpense})
+      : super(const AddExpenseState()) {
+    on<AddExpenseButtonPressed>((event, emit) async {
+      await addExpenseButtonPressed(event, emit);
+    });
+  }
 
-  Stream<AddExpenseState> mapEventToState(
-    AddExpenseEvent event,
-  ) async* {
-    if (event is AddExpenseButtonPressed) {
-      yield AddExpenseLoading();
-      try {
-        final userId = event.expense.userId;
-        final amount = event.expense.amount;
-        final date = event.expense.date;
-        final time = event.expense.time;
-        final note = event.expense.note;
-        final weather = event.expense.weather;
-        final category = event.expense.category;
+  Future <void> addExpenseButtonPressed(
+    AddExpenseButtonPressed event,
+    Emitter<AddExpenseState> emit,
+  ) async {
 
-        final result = await createExpense.call(
-          userId: userId,
-          amount: amount,
-          date: date,
-          time: time,
-          note: note,
-          weather: weather,
-          category: category,
-        );
+    try {
+      final id = event.expense.id;
+      final userId = event.expense.userId;
+      final amount = event.expense.amount;
+      final date = event.expense.date;
+      final time = event.expense.time;
+      final note = event.expense.note;
+      final weather = event.expense.weather;
+      final category = event.expense.category;
 
-        yield result.fold(
-          (failure) => const AddExpenseFailure(error: 'Failed to create expense.'),
-          (_) => AddExpenseSuccess(),
-        );
-      } catch (e) {
-        yield const AddExpenseFailure(error: 'Failed to create expense.');
-      }
+      final result = await createExpense.call(
+        id: id,
+        userId: userId,
+        amount: amount,
+        date: date,
+        time: time,
+        note: note,
+        weather: weather,
+        category: category,
+      );
+
+
+      result.fold(
+        (failure) => emit(state.copyWith(status: AddExpenseStatus.failure)),
+        (_) => emit(state.copyWith(status: AddExpenseStatus.success)),
+      );
+    } catch (e) {
+      emit(state.copyWith(status: AddExpenseStatus.failure));
     }
   }
 }
