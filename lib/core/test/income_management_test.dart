@@ -46,6 +46,7 @@ void main() async {
   // Test the CreateIncome use case
   createIncome
       .call(
+    id: '123',
     userId: 'user123',
     amount: 50.0,
     date: DateTime.now(),
@@ -80,7 +81,6 @@ void main() async {
         },
       );
     });
-
 
     // Test the UpdateIncome use case
     // Replace with the Income to be updated

@@ -12,6 +12,7 @@ class CreateIncome {
   CreateIncome(this.repository);
 
   Future<Either<Failure, void>> call({
+    required String id,
     required String userId,
     required double amount,
     required DateTime date,
@@ -19,9 +20,9 @@ class CreateIncome {
     required String note,
     required CategoryEntity category,
   }) async {
-    final uuid = Uuid();
+    //final uuid = Uuid();
     final income = IncomeEntity(
-      id: uuid.v4(), // Generate or assign a unique ID
+      id: id, // Generate or assign a unique ID
       userId: userId,
       amount: amount,
       date: date,
