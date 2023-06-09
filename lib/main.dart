@@ -2,34 +2,12 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:nothing/core/network/network_info_impl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/core/test/add_expense_bloc_test.dart';
+import 'package:nothing/features/user_management/domain/entities/user_entity.dart';
 import 'core/database/database_initializer.dart';
 
 // Import the necessary files for the bloc
-import 'package:nothing/features/expense_management/presentation/add_expense_presenter/bloc/add_expense_bloc.dart';
-import 'package:nothing/features/expense_management/presentation/delete_expense_presenter/bloc/delete_expense_bloc.dart';
-
-import 'package:nothing/features/expense_management/data/datasources/expense_datasource_impl.dart';
-import 'package:nothing/features/expense_management/data/repositories/expense_repository_impl.dart';
-import 'package:nothing/features/expense_management/domain/entities/category_entity.dart';
-import 'package:nothing/features/expense_management/domain/repositories/expense_repository.dart';
-import 'package:nothing/features/expense_management/domain/usecases/create_expense.dart';
-import 'package:nothing/features/expense_management/domain/usecases/delete_expense.dart';
-import 'package:nothing/features/expense_management/domain/usecases/get_expenses_by_user.dart';
-import 'package:nothing/features/expense_management/domain/usecases/update_expense.dart';
-import 'package:nothing/features/expense_management/domain/usecases/get_expense_by_id.dart';
-import 'package:nothing/features/expense_management/data/datasources/local_storage.dart';
-
-import 'package:nothing/features/income_management/data/datasources/income_datasource_impl.dart';
-import 'package:nothing/features/income_management/data/repositories/income_repository_impl.dart';
-import 'package:nothing/features/income_management/domain/entities/category_entity.dart';
-import 'package:nothing/features/income_management/domain/repositories/income_repository.dart';
-import 'package:nothing/features/income_management/domain/usecases/create_income.dart';
-import 'package:nothing/features/income_management/domain/usecases/delete_income.dart';
-import 'package:nothing/features/income_management/domain/usecases/get_incomes_by_user.dart';
-import 'package:nothing/features/income_management/domain/usecases/update_income.dart';
-
-import '../../features/income_management/data/datasources/local_storage.dart';
-import '../../features/income_management/domain/entities/income_entity.dart';
+import 'package:nothing/features/user_management/presentation/register_presenter/bloc/register_presenter_bloc.dart';
 
 import 'package:nothing/features/user_management/data/datasources/user_datasource_impl.dart';
 import 'package:nothing/features/user_management/data/repositories/user_repository_impl.dart';
@@ -88,4 +66,89 @@ void main() async {
       (user) => print('User logged in successfully: ${user.username}'),
     );
   });
+  runApp(MyApp(userRepository: userRepository));
+}
+
+class MyApp extends StatelessWidget {
+  final UserRepository userRepository;
+
+  MyApp({required this.userRepository});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'demo',
+      home: BlocProvider(
+        create: (_) => RegisterBloc(
+            registerUserUseCase: RegisterUserUseCase(userRepository)),
+        child: HomePage(),
+      ),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final registerBloc = BlocProvider.of<RegisterBloc>(context);
+
+    return Scaffold(
+      body: Center(
+        child: BlocConsumer<RegisterBloc, RegisterState>(
+          listener: (context, state) {
+            if (state is RegisterSuccess) {
+              showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                        title: Text('Reg success'),
+                        content: Text('suc'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text('ok'),
+                          ),
+                        ],
+                      ));
+            } else if (state is RegisterFailure) {
+              showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                        title: Text('Reg failed'),
+                        content: Text('ff'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text('ok'),
+                          ),
+                        ],
+                      ));
+            }
+          },
+          builder: (context, state) {
+            return ElevatedButton(
+              onPressed: () {
+                registerBloc.add(
+                  RegisterButtonPressed(
+                    user: UserEntity(
+                      id: '1',
+                      username: 'ibasa',
+                      email: 'ii@example.com',
+                      password: 'pass123',
+                    ),
+                  ),
+                );
+              },
+              child: const Text('Register'),
+            );
+          },
+        ),
+      ),
+    );
+  }
 }
