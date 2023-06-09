@@ -181,7 +181,7 @@ class HomePage extends StatelessWidget {
                   onPressed: () {
                     // Dispatch the DeleteExpenseButtonPressed event
                     deleteExpenseBloc.add(
-                      DeleteExpenseButtonPressed(expenseId: '6'),
+                      const DeleteExpenseButtonPressed(expenseId: '6'),
                     );
                   },
                   child: const Text('Delete Expense'),
