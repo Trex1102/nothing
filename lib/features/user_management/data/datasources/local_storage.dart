@@ -11,6 +11,7 @@ class UserLocalStorage {
     try {
       await database.insert('users', user.toJson());
     } catch (e) {
+      print('DatabaseException: $e');
       throw exceptions.DatabaseException('Error Message');
     }
   }

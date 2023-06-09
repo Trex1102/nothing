@@ -6,6 +6,5 @@ abstract class UserRepository {
   //Future<bool>loginUser(String email, String password);
 
   //Future<void> registerUser(UserEntity user);
-  Future<UserEntity?> loginUser(String email, String password);
-  //Future<UserEntity?> getUserByEmail(String email);
+  Future<UserEntity> loginUser(String email, String password);
 }
