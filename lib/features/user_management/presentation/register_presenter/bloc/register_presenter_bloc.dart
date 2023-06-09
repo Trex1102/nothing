@@ -23,7 +23,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     Emitter<RegisterState> emit,
   ) async {
     try {
-      final id = event.user.id;
+      //final id = event.user.id;
       final username = event.user.username;
       final email = event.user.email;
       final password = event.user.password;

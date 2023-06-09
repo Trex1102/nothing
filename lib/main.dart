@@ -2,7 +2,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:nothing/core/network/network_info_impl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nothing/core/test/add_expense_bloc_test.dart';
 import 'package:nothing/features/user_management/domain/entities/user_entity.dart';
 import 'core/database/database_initializer.dart';
 
