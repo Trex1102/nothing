@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class NumpadWidget extends StatelessWidget {
   final Function(String) onKeyPressed;
@@ -63,7 +62,7 @@ class NumpadWidget extends StatelessWidget {
       width: 100,
       height: 65,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black, width: 2),
+        border: Border.all(color: Colors.black, width: 1),
         borderRadius: BorderRadius.circular(25),
       ),
       child: MaterialButton(
@@ -78,7 +77,7 @@ class NumpadWidget extends StatelessWidget {
         highlightElevation: 0,
         child: Text(
           number,
-          style: GoogleFonts.roboto(fontSize: 40),
+          style: const TextStyle(fontFamily: 'MPlusRounded1C' , fontSize: 40),
         ),
       ),
     );
@@ -89,7 +88,7 @@ class NumpadWidget extends StatelessWidget {
       width: 100,
       height: 65,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black, width: 2),
+        border: Border.all(color: Colors.black, width: 1),
         borderRadius: BorderRadius.circular(25),
         color: Colors.amber,
       ),

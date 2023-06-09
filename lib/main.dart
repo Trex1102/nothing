@@ -1,56 +1,30 @@
 import 'package:flutter/material.dart';
-import 'features/expense_management/presentation/add_expense_presenter/widgets/numpad_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'features/expense_management/presentation/add_expense_presenter/widgets/add_note_textfield.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  // ignore: library_private_types_in_public_api
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  String enteredText = '';
-
-  void handleKeyPressed(String key) {
-    setState(() {
-      if (key == 'backspace') {
-        if (enteredText.isNotEmpty) {
-          enteredText = enteredText.substring(0, enteredText.length - 1);
-        }
-      } else {
-        enteredText += key;
-      }
-    });
-  }
+class MyApp extends StatelessWidget {
+  final TextEditingController _noteController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Note App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        textTheme: GoogleFonts.robotoTextTheme(),
+      ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Numpad Widget Example'),
+          title: Text('Note App'),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Entered Text:',
-                style: TextStyle(fontSize: 24),
-              ),
-              Text(
-                enteredText,
-                style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 24),
-              NumpadWidget(onKeyPressed: handleKeyPressed),
-            ],
-          ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: AddNoteTextField(controller: _noteController),
         ),
       ),
     );

@@ -8,6 +8,8 @@ environment:
 
 dependencies:
   flutter:
+    
+
     sdk: flutter
   
   # Bloc for state management
@@ -53,4 +55,12 @@ dev_dependencies:
   mockito: ^5.4.1
 
 flutter:
+  assets:
+      - assets/fonts/
+
+  fonts:
+    - family: MPLUSRounded1c
+      fonts:
+        - asset: assets/fonts/MPLUSRounded1c-Regular.ttf
+
   uses-material-design: true
