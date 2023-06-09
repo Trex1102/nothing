@@ -1,6 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:nothing/core/network/network_info_impl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'core/database/database_initializer.dart';
+
 import 'package:nothing/features/expense_management/data/datasources/expense_datasource_impl.dart';
 import 'package:nothing/features/expense_management/data/repositories/expense_repository_impl.dart';
 import 'package:nothing/features/expense_management/domain/entities/category_entity.dart';
@@ -13,7 +16,6 @@ import 'package:nothing/features/expense_management/domain/usecases/get_expense_
 
 import 'features/expense_management/data/datasources/local_storage.dart';
 import 'features/expense_management/domain/entities/expense_entity.dart';
-import 'core/database/database_initializer.dart';
 
 import 'package:nothing/features/income_management/data/datasources/income_datasource_impl.dart';
 import 'package:nothing/features/income_management/data/repositories/income_repository_impl.dart';
@@ -26,7 +28,6 @@ import 'package:nothing/features/income_management/domain/usecases/update_income
 
 import '../../features/income_management/data/datasources/local_storage.dart';
 import '../../features/income_management/domain/entities/income_entity.dart';
-
 
 import 'package:nothing/features/user_management/data/datasources/user_datasource_impl.dart';
 import 'package:nothing/features/user_management/data/repositories/user_repository_impl.dart';
@@ -137,29 +138,29 @@ void main() async {
     );
 
     updateExpense.call(expense: updatedExpense).then((result) {
-  result.fold(
-    (failure) => print('Failed to update expense: $failure'),
-    (_) => print('Expense updated successfully'),
-  );
+      result.fold(
+        (failure) => print('Failed to update expense: $failure'),
+        (_) => print('Expense updated successfully'),
+      );
 
-  // Get the updated expense by ID
-  getExpenseById.call(updatedExpense.id).then((result) {
-    result.fold(
-      (failure) => print('Failed to get expense by ID: $failure'),
-      (expense) {
-        print('Updated Expense:');
-        print('ID: ${expense.id}');
-        print('User ID: ${expense.userId}');
-        print('Amount: ${expense.amount}');
-        print('Date: ${expense.date}');
-        print('Time: ${expense.time}');
-        print('Note: ${expense.note}');
-        print('Weather: ${expense.weather}');
-        print('Category ID: ${expense.category.id}');
-      },
-    );
-  });
-});
+      // Get the updated expense by ID
+      getExpenseById.call(updatedExpense.id).then((result) {
+        result.fold(
+          (failure) => print('Failed to get expense by ID: $failure'),
+          (expense) {
+            print('Updated Expense:');
+            print('ID: ${expense.id}');
+            print('User ID: ${expense.userId}');
+            print('Amount: ${expense.amount}');
+            print('Date: ${expense.date}');
+            print('Time: ${expense.time}');
+            print('Note: ${expense.note}');
+            print('Weather: ${expense.weather}');
+            print('Category ID: ${expense.category.id}');
+          },
+        );
+      });
+    });
 
     // Test the DeleteExpense use case
     String expenseId =
@@ -248,9 +249,6 @@ void main() async {
     });
   });
 
-
-  //user_manasgement test
-
   // Create the use cases
   RegisterUserUseCase registerUserUseCase = RegisterUserUseCase(userRepository);
   // Test the RegisterUserUseCase
@@ -271,10 +269,7 @@ void main() async {
   final email = 'ii@example.com';
   final password = 'pass123';
   // Test the LoginUserUseCase
-  await loginUserUseCase.call(
-    email,
-    password
-  ).then((result) {
+  await loginUserUseCase.call(email, password).then((result) {
     result.fold(
       (failure) => print('User login failed: $failure'),
       (user) => print('User logged in successfully: ${user.username}'),
