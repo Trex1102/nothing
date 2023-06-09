@@ -4,7 +4,6 @@ import '../entities/income_entity.dart';
 import '../repositories/income_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
 class CreateIncome {
   final IncomeRepository repository;
