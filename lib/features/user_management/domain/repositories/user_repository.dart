@@ -1,4 +1,3 @@
-
 import 'package:nothing/features/user_management/domain/entities/user_entity.dart';
 
 abstract class UserRepository {
@@ -7,4 +6,9 @@ abstract class UserRepository {
 
   //Future<void> registerUser(UserEntity user);
   Future<UserEntity> loginUser(String email, String password);
+
+  Future<List<UserEntity>> getAllUsers();
+
+  Future<bool> isUsernameTaken(String username);
+  Future<bool> isEmailTaken(String email);
 }

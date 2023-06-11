@@ -15,6 +15,16 @@ class RegisterUserUseCase {
     required String email,
     required String password,
   }) async {
+    final isUsernameTaken = await userRepository.isUsernameTaken(username);
+    if (isUsernameTaken) {
+      return Left(Failures('Username is already taken'));
+    }
+
+    final isEmailTaken = await userRepository.isEmailTaken(email);
+    if (isEmailTaken) {
+      return Left(Failures('Email is already taken'));
+    }
+
     validateInputData(username, email, password);
 
     final uuid = Uuid();
@@ -56,7 +66,8 @@ class RegisterUserUseCase {
   }
 
   bool isEmailValid(String email) {
-    final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$');
+    final emailRegex = RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
     return emailRegex.hasMatch(email);
   }
 }

@@ -51,4 +51,51 @@ class UserRepositoryImpl implements UserRepository {
       throw NetworkException();
     }
   }
+
+  @override
+  Future<List<UserEntity>> getAllUsers() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final List<UserModel> userModels = await userDataSource.getAllUsers();
+        return userModels.map((model) => 
+        UserEntity(
+          id: model.id,
+          email: model.email,
+          username: model.username,
+          password: model.password,
+        )).toList();
+        //return users;
+      } catch (e) {
+        throw RepositoryException();
+      }
+    } else {
+      throw NetworkException();
+    }
+  }
+
+  @override
+  Future<bool> isUsernameTaken(String username) async {
+    // Implement the logic to check if username is taken in the data layer
+    // using the UserDataSource
+    try {
+      final user = await userDataSource.getUserByUsername(username);
+      return user != null;
+    } catch (e) {
+      return false;
+    }
+  }
+
+    @override
+  Future<bool> isEmailTaken(String email) async {
+    // Implement the logic to check if email is taken in the data layer
+    // using the UserDataSource
+    try {
+      final user = await userDataSource.getUserByEmail(email);
+      return user != null;
+    } catch (e) {
+      // Handle any exceptions or errors
+      return false;
+    }
+  }
+
 }

@@ -23,9 +23,10 @@ class DatabaseInitializer {
         await db.execute('''
           CREATE TABLE users (
             id TEXT PRIMARY KEY,
-            username TEXT,
-            email TEXT,
-            password TEXT
+            username TEXT UNIQUE,
+            email TEXT UNIQUE,
+            password TEXT UNIQUE,
+            UNIQUE (username, email, password)
           )
         ''');
         await db.execute('''
@@ -45,8 +46,8 @@ class DatabaseInitializer {
   }
 
   static Future<void> clearDatabase(Database database) async {
-    await database.delete('expenses');
+    //await database.delete('expenses');
     await database.delete('users');
-    await database.delete('incomes');
+    //await database.delete('incomes');
   }
 }

@@ -15,6 +15,7 @@ import 'package:nothing/features/user_management/domain/usecases/register_user_u
 import 'package:nothing/features/user_management/domain/usecases/login_user_usecase.dart';
 import 'package:nothing/features/user_management/data/datasources/local_storage.dart';
 
+import 'features/user_management/domain/usecases/get_users_usecase.dart';
 import 'features/user_management/presentation/login_presenter/bloc/login_presenter_bloc.dart';
 
 void main() async {
@@ -40,13 +41,15 @@ void main() async {
     networkInfo: networkInfo,
   );
 
+  await DatabaseInitializer.clearDatabase(database);
+
   //user_management test
   // Create the use cases
   RegisterUserUseCase registerUserUseCase = RegisterUserUseCase(userRepository);
   // Test the RegisterUserUseCase
   await registerUserUseCase
       .call(
-    username: 'ibasa',
+    username: 'ii',
     email: 'ii@example.com',
     password: 'pass123',
   )
@@ -67,6 +70,18 @@ void main() async {
       (user) => print('User logged in successfully: ${user.username}'),
     );
   });
+  
+
+  final getAllUsersUseCase = GetAllUsersUseCase(userRepository);
+
+  await getAllUsersUseCase.call().then((result) {
+    result.fold(
+      (failure) => print('Failed to fetch users: $failure'),
+      (users) => users.forEach((user) => print(user)),
+    );
+  });
+
+
   runApp(MyApp(userRepository: userRepository));
 }
 
@@ -106,6 +121,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             BlocConsumer<RegisterBloc, RegisterState>(
               listener: (context, state) {

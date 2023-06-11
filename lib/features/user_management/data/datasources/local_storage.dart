@@ -28,4 +28,41 @@ Future<UserModel> loginUser(String email, String password) async {
       throw exceptions.DatabaseException('Error Message');
     }
   }
+
+  @override
+  Future<List<UserModel>> getAllUsers() async {
+    final List<Map<String, dynamic>> userList = await database.query('users');
+    return userList.map((json) => UserModel.fromJson(json)).toList();
+  }
+
+  @override
+  Future<UserModel> getUserByUsername(String username) async {
+    final result = await database.query(
+      'users',
+      where: 'username = ?',
+      whereArgs: [username],
+    );
+    if (result.isNotEmpty) {
+      return UserModel.fromJson(result.first);
+    }
+    else {
+        throw exceptions.DatabaseException('Username not found');
+    }
+  }
+
+    @override
+  Future<UserModel> getUserByEmail(String email) async {
+    final result = await database.query(
+      'users',
+      where: 'email = ?',
+      whereArgs: [email],
+    );
+    if (result.isNotEmpty) {
+      return UserModel.fromJson(result.first);
+    }
+    else {
+        throw exceptions.DatabaseException('Email not found');
+    }
+  }
+  
 }
