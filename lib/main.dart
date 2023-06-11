@@ -1,24 +1,16 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:nothing/core/network/network_info_impl.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nothing/core/test/add_expense_bloc_test.dart';
-import 'package:nothing/features/user_management/domain/entities/user_entity.dart';
 import 'core/database/database_initializer.dart';
-import 'package:provider/provider.dart';
 
 // Import the necessary files for the bloc
-import 'package:nothing/features/user_management/presentation/register_presenter/bloc/register_presenter_bloc.dart';
 
 import 'package:nothing/features/user_management/data/datasources/user_datasource_impl.dart';
 import 'package:nothing/features/user_management/data/repositories/user_repository_impl.dart';
 import 'package:nothing/features/user_management/domain/repositories/user_repository.dart';
-import 'package:nothing/features/user_management/domain/usecases/register_user_usecase.dart';
-import 'package:nothing/features/user_management/domain/usecases/login_user_usecase.dart';
 import 'package:nothing/features/user_management/data/datasources/local_storage.dart';
 
 import 'features/user_management/domain/usecases/get_users_usecase.dart';
-import 'features/user_management/presentation/login_presenter/bloc/login_presenter_bloc.dart';
 import 'package:nothing/features/user_management/presentation/register_presenter/widgets/register_form.dart';
 
 void main() async {
@@ -70,17 +62,23 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: MultiBlocProvider(
-      providers: [
-        BlocProvider<RegisterBloc>(
-          create: (_) => RegisterBloc(registerUserUseCase: RegisterUserUseCase(userRepository)),
-        ),
-      ],
-      child: RegisterForm(),
-    ),
+      home: 
+      // MultiBlocProvider(
+      // providers: [
+      //   BlocProvider<RegisterBloc>(
+      //     create: (_) => RegisterBloc(registerUserUseCase: RegisterUserUseCase(userRepository)),
+      //   ),
+      //   BlocProvider<LoginBloc>(
+      //      create: (_) => LoginBloc(loginUserUseCase: LoginUserUseCase(userRepository)),
+      //    ),
+      // ],
+      // child: 
+      RegisterForm(userRepository: userRepository),
+    //),
       // initialRoute: '/register',
       // routes: {
       //   '/register': (context) => RegisterForm(),
+      //   '/login': (context) => LoginForm(),
       // },
     );
   }

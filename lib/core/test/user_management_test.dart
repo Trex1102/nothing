@@ -1,8 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:nothing/core/error/exceptions.dart';
 import 'package:nothing/core/network/network_info_impl.dart';
-import 'package:test/expect.dart';
 import '../../core/database/database_initializer.dart';
 
 import 'package:nothing/features/user_management/data/datasources/user_datasource_impl.dart';
@@ -11,7 +9,6 @@ import 'package:nothing/features/user_management/domain/repositories/user_reposi
 import 'package:nothing/features/user_management/domain/usecases/register_user_usecase.dart';
 import 'package:nothing/features/user_management/domain/usecases/login_user_usecase.dart';
 import 'package:nothing/features/user_management/data/datasources/local_storage.dart';
-import 'package:nothing/features/user_management/domain/entities/user_entity.dart';
 
 import '../../features/user_management/domain/usecases/get_users_usecase.dart';
 

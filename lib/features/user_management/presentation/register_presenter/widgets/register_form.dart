@@ -1,13 +1,18 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/src/widgets/framework.dart' as s;
 import 'package:nothing/features/user_management/domain/entities/user_entity.dart';
+import 'package:nothing/features/user_management/presentation/login_presenter/widgets/login_form.dart';
 
+import '../../../domain/repositories/user_repository.dart';
+import '../../../domain/usecases/register_user_usecase.dart';
 import '../bloc/register_presenter_bloc.dart';
 
 class RegisterForm extends StatefulWidget {
   //const RegisterForm({Key? key}) : super(key: key);
+
+  final UserRepository userRepository;
+  RegisterForm({required this.userRepository});
 
   @override
   _RegisterFormState createState() => _RegisterFormState();
@@ -37,8 +42,11 @@ class _RegisterFormState extends s.State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body : Center(
+    return BlocProvider<RegisterBloc>(
+      create: (_) => RegisterBloc(
+          registerUserUseCase: RegisterUserUseCase(widget.userRepository)),
+    child : Scaffold(
+        body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -49,14 +57,23 @@ class _RegisterFormState extends s.State<RegisterForm> {
                     context: context,
                     builder: (_) => AlertDialog(
                           title: Text('Registration success!'),
-                          content: Text('You are registered.'),
+                          content: Text('Registered successfully.'),
                           actions: [
                             TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text('ok'),
-                            ),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: TextButton(
+                                  child: const Text('OK'),
+                                  onPressed: () {
+                                    Navigator.pop(context); // Close the dialog
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginForm(userRepository: widget.userRepository,)),
+                                    );
+                                  },
+                                )),
                           ],
                         ));
               } else if (state is RegisterFailure) {
@@ -144,7 +161,6 @@ class _RegisterFormState extends s.State<RegisterForm> {
           ),
         ],
       ),
-    )
-    );
+    )));
   }
 }
