@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:nothing/core/network/network_info_impl.dart';
+import 'package:nothing/features/user_management/presentation/register_presenter/widgets/register_design.dart';
 import 'core/database/database_initializer.dart';
 
 // Import the necessary files for the bloc
