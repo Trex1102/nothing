@@ -79,9 +79,9 @@ class MyApp extends StatelessWidget {
           // child:
 
           //ExpenseDetails(),
-          ExpenseDetailsPage(),
+          //ExpenseDetailsPage(),
 
-      //RegisterForm(userRepository: userRepository),
+          RegisterForm(userRepository: userRepository),
 
       //),
       // initialRoute: '/register',
