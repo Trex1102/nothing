@@ -75,8 +75,6 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<bool> isUsernameTaken(String username) async {
-    // Implement the logic to check if username is taken in the data layer
-    // using the UserDataSource
     try {
       final user = await userDataSource.getUserByUsername(username);
       return user != null;
@@ -87,13 +85,10 @@ class UserRepositoryImpl implements UserRepository {
 
     @override
   Future<bool> isEmailTaken(String email) async {
-    // Implement the logic to check if email is taken in the data layer
-    // using the UserDataSource
     try {
       final user = await userDataSource.getUserByEmail(email);
       return user != null;
     } catch (e) {
-      // Handle any exceptions or errors
       return false;
     }
   }

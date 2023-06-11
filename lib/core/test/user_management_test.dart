@@ -13,6 +13,8 @@ import 'package:nothing/features/user_management/domain/usecases/login_user_usec
 import 'package:nothing/features/user_management/data/datasources/local_storage.dart';
 import 'package:nothing/features/user_management/domain/entities/user_entity.dart';
 
+import '../../features/user_management/domain/usecases/get_users_usecase.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -36,12 +38,15 @@ void main() async {
     networkInfo: networkInfo,
   );
 
-  // Create the use cases
+//await DatabaseInitializer.clearDatabase(database);
+
+  //user_management test
+  //Create the use cases
   RegisterUserUseCase registerUserUseCase = RegisterUserUseCase(userRepository);
-  // Test the RegisterUserUseCase
+  //Test the RegisterUserUseCase
   await registerUserUseCase
       .call(
-    username: 'ibasa',
+    username: 'ii',
     email: 'ii@example.com',
     password: 'pass123',
   )
@@ -56,13 +61,19 @@ void main() async {
   final email = 'ii@example.com';
   final password = 'pass123';
   // Test the LoginUserUseCase
-  await loginUserUseCase.call(
-    email,
-    password
-  ).then((result) {
+  await loginUserUseCase.call(email, password).then((result) {
     result.fold(
       (failure) => print('User login failed: $failure'),
       (user) => print('User logged in successfully: ${user.username}'),
+    );
+  });
+
+  final getAllUsersUseCase = GetAllUsersUseCase(userRepository);
+
+  await getAllUsersUseCase.call().then((result) {
+    result.fold(
+      (failure) => print('Failed to fetch users: $failure'),
+      (users) => users.forEach((user) => print(user)),
     );
   });
 }

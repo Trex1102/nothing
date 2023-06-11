@@ -2,7 +2,6 @@ import 'package:nothing/features/user_management/domain/entities/user_entity.dar
 import 'package:nothing/features/user_management/domain/repositories/user_repository.dart';
 
 import 'package:dartz/dartz.dart';
-import 'package:uuid/uuid.dart';
 import '/core/error/failures.dart';
 
 class GetAllUsersUseCase {
