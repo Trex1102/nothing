@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:nothing/features/expense_management/domain/entities/category_entity.dart';
 import '../../domain/entities/expense_entity.dart';
 
-
 class ExpenseModel {
   final String id;
   final String userId;
@@ -51,13 +50,12 @@ class ExpenseModel {
     };
   }
 
-
   factory ExpenseModel.fromEntity(ExpenseEntity entity) {
     return ExpenseModel(
       id: entity.id,
       userId: entity.userId,
       amount: entity.amount,
-      date: _getStringFromDateTime(entity.date) ,
+      date: _getStringFromDateTime(entity.date),
       time: _getStringFromTime(entity.time),
       note: entity.note,
       weather: _getStringFromWeatherType(entity.weather),
@@ -77,7 +75,7 @@ class ExpenseModel {
       category: _getCategoryFromId(categoryId),
     );
   }
-  
+
   static DateTime _getDateTimeFromString(String dateString) {
     return DateFormat('yyyy-MM-dd').parse(dateString);
   }
@@ -96,7 +94,8 @@ class ExpenseModel {
   }
 
   static CategoryEntity _getCategoryFromId(String categoryId) {
-    return predefinedCategories.firstWhere((category) => category.id == categoryId);
+    return predefinedCategories
+        .firstWhere((category) => category.id == categoryId);
   }
 
   static WeatherType _getWeatherTypeFromString(String weatherString) {

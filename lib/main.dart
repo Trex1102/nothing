@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:nothing/core/network/network_info_impl.dart';
+import 'package:nothing/core/test/add_expense_bloc_test.dart';
 import 'package:nothing/features/expense_management/presentation/get_expense_by_id_presentor/pages/view_expense_screen.dart';
 import 'package:nothing/features/expense_management/presentation/get_expense_by_id_presentor/widgets/expense_details.dart';
 import 'package:nothing/features/user_management/domain/usecases/get_current_user_usecase.dart';
@@ -87,7 +88,7 @@ class MyApp extends StatelessWidget {
       home:
           //UserProfileForm(userRepository: userRepository),
 
-          RegisterForm(userRepository: userRepository),
+      //RegisterForm(userRepository: userRepository),
 
       //),
       // initialRoute: '/register',

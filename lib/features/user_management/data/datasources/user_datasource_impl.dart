@@ -32,7 +32,7 @@ class UserDataSourceImpl implements UserDataSource {
   Future<List<UserModel>> getAllUsers() async {
     try {
       return await localStorage.getAllUsers();
-    } catch(e) {
+    } catch (e) {
       print('Failed to find user: $e');
       throw DataSourceException();
     }
@@ -57,7 +57,7 @@ class UserDataSourceImpl implements UserDataSource {
     }
   }
 
-    @override
+  @override
   Future<UserModel> getUserByEmail(String email) async {
     try {
       return await localStorage.getUserByEmail(email);
@@ -66,5 +66,4 @@ class UserDataSourceImpl implements UserDataSource {
       throw DataSourceException();
     }
   }
-
 }

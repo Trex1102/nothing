@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nothing/features/common/presentation/widgets/custom_text_styles.dart';
 
-class DailyExpense extends StatelessWidget {
+class RemainingCash extends StatelessWidget {
   final customTextStyle = CustomTextStyle();
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class DailyExpense extends StatelessWidget {
       child: Expanded(
         child: Column(children: [
           Text(
-            "Today's Expense",
+            "Remaining Cash",
             style: customTextStyle.mediumTextStyle,
           ),
           Text('৳000', style: customTextStyle.largeTextStyle),
@@ -22,36 +22,35 @@ class DailyExpense extends StatelessWidget {
   }
 }
 
-class ExpenseTile extends StatelessWidget {
+class IncomeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 55,
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Color.fromARGB(255, 217, 217, 217),
+        color: const Color.fromARGB(255, 217, 217, 217),
       ),
       child: Row(
         children: [
           Container(
             width: 55, // Width of the icon
-            // Placeholder color
-            child: Icon(
+            child: const Icon(
               Icons.emoji_transportation_rounded,
             ),
           ),
-          Expanded(
+          const Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 'Amount',
                 style: TextStyle(fontSize: 16),
               ),
             ),
           ),
-          Column(
+          const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
