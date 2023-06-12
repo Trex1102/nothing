@@ -103,29 +103,29 @@ void main() async {
     );
 
     updateExpense.call(expense: updatedExpense).then((result) {
-  result.fold(
-    (failure) => print('Failed to update expense: $failure'),
-    (_) => print('Expense updated successfully'),
-  );
+      result.fold(
+        (failure) => print('Failed to update expense: $failure'),
+        (_) => print('Expense updated successfully'),
+      );
 
-  // Get the updated expense by ID
-  getExpenseById.call(updatedExpense.id).then((result) {
-    result.fold(
-      (failure) => print('Failed to get expense by ID: $failure'),
-      (expense) {
-        print('Updated Expense:');
-        print('ID: ${expense.id}');
-        print('User ID: ${expense.userId}');
-        print('Amount: ${expense.amount}');
-        print('Date: ${expense.date}');
-        print('Time: ${expense.time}');
-        print('Note: ${expense.note}');
-        print('Weather: ${expense.weather}');
-        print('Category ID: ${expense.category.id}');
-      },
-    );
-  });
-});
+      // Get the updated expense by ID
+      getExpenseById.call(updatedExpense.id).then((result) {
+        result.fold(
+          (failure) => print('Failed to get expense by ID: $failure'),
+          (expense) {
+            print('Updated Expense:');
+            print('ID: ${expense.id}');
+            print('User ID: ${expense.userId}');
+            print('Amount: ${expense.amount}');
+            print('Date: ${expense.date}');
+            print('Time: ${expense.time}');
+            print('Note: ${expense.note}');
+            print('Weather: ${expense.weather}');
+            print('Category ID: ${expense.category.id}');
+          },
+        );
+      });
+    });
 
     // Test the DeleteExpense use case
     String expenseId =

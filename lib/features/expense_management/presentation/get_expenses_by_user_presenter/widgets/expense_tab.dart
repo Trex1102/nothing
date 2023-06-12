@@ -13,9 +13,14 @@ class ExpenseTab extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(left: 22),
           alignment: AlignmentDirectional.topStart,
-          child: Text(
-            'Today',
-            style: CustomTextStyle.defaultTextStyle,
+          child: Row(
+            children: [
+              Text(
+                'Today',
+                style: CustomTextStyle.defaultTextStyle,
+              ),
+              Icon(Icons.calendar_month_rounded),
+            ],
           ),
         ),
         ExpenseTile(),

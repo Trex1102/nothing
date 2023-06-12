@@ -3,6 +3,7 @@ import 'package:nothing/features/common/presentation/widgets/custom_text_styles.
 import 'package:nothing/features/expense_management/presentation/get_expenses_by_user_presenter/widgets/expense_list.dart';
 import 'package:nothing/features/income_management/presentation/get_income_by_id_presentor/widgets/income_tab.dart';
 
+import '../../../../common/presentation/widgets/bottom_navbar.dart';
 import 'expense_tab.dart';
 
 class HomepageUpperNavbar extends StatelessWidget {
@@ -33,6 +34,12 @@ class HomepageUpperNavbar extends StatelessWidget {
           },
           child: const Icon(Icons.add),
           backgroundColor: Color.fromARGB(255, 255, 191, 0),
+        ),
+        bottomNavigationBar: CustomBottomNavBar(
+          currentIndex: 0,
+          onTap: (int index) {
+            // Handle tab selection here
+          },
         ),
       ),
     );
