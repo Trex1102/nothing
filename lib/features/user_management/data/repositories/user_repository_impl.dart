@@ -57,19 +57,34 @@ class UserRepositoryImpl implements UserRepository {
     if (await networkInfo.isConnected) {
       try {
         final List<UserModel> userModels = await userDataSource.getAllUsers();
-        return userModels.map((model) => 
-        UserEntity(
-          id: model.id,
-          email: model.email,
-          username: model.username,
-          password: model.password,
-        )).toList();
+        return userModels
+            .map((model) => UserEntity(
+                  id: model.id,
+                  email: model.email,
+                  username: model.username,
+                  password: model.password,
+                ))
+            .toList();
         //return users;
       } catch (e) {
         throw RepositoryException();
       }
     } else {
       throw NetworkException();
+    }
+  }
+
+  @override
+  Future<UserEntity> getCurrentUser() async {
+    try {
+      final userModel = await userDataSource.getCurrentUser();
+      return UserEntity(
+          id: userModel.id,
+          username: userModel.username,
+          email: userModel.email,
+          password: userModel.password);
+    } catch (e) {
+      throw Exception('Failed to get user profile');
     }
   }
 
@@ -83,7 +98,7 @@ class UserRepositoryImpl implements UserRepository {
     }
   }
 
-    @override
+  @override
   Future<bool> isEmailTaken(String email) async {
     try {
       final user = await userDataSource.getUserByEmail(email);
@@ -92,5 +107,4 @@ class UserRepositoryImpl implements UserRepository {
       return false;
     }
   }
-
 }

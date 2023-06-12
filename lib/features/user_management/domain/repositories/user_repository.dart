@@ -11,4 +11,6 @@ abstract class UserRepository {
 
   Future<bool> isUsernameTaken(String username);
   Future<bool> isEmailTaken(String email);
+
+  Future<UserEntity> getCurrentUser();
 }

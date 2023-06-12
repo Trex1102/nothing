@@ -39,6 +39,15 @@ class UserDataSourceImpl implements UserDataSource {
   }
 
   @override
+  Future<UserModel> getCurrentUser() {
+    try {
+      return localStorage.getCurrentUser();
+    } catch (e) {
+      throw Exception('Failed to get user profile');
+    }
+  }
+
+  @override
   Future<UserModel> getUserByUsername(String username) async {
     try {
       return await localStorage.getUserByUsername(username);

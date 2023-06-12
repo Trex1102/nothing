@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nothing/features/user_management/domain/entities/user_entity.dart';
 import 'package:nothing/features/user_management/domain/usecases/login_user_usecase.dart';
 import 'package:nothing/features/user_management/presentation/register_presenter/widgets/register_form.dart';
+import 'package:nothing/features/user_profile/presentation/widgets/user_profile_form.dart';
 
 import '../../../domain/repositories/user_repository.dart';
 import '../bloc/login_presenter_bloc.dart';
@@ -58,6 +59,13 @@ class _LoginFormState extends State<LoginForm> {
                               TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      
+                                        builder: (context) =>
+                                            UserProfileForm(userRepository: widget.userRepository,)),
+                                  );
                                 },
                                 child: const Text('OK'),
                               ),

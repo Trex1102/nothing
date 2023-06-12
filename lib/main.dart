@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nothing/core/network/network_info_impl.dart';
 import 'package:nothing/features/expense_management/presentation/get_expense_by_id_presentor/pages/view_expense_screen.dart';
 import 'package:nothing/features/expense_management/presentation/get_expense_by_id_presentor/widgets/expense_details.dart';
+import 'package:nothing/features/user_management/domain/usecases/get_current_user_usecase.dart';
 import 'core/database/database_initializer.dart';
 
 // Import the necessary files for the bloc
@@ -12,8 +13,11 @@ import 'package:nothing/features/user_management/data/repositories/user_reposito
 import 'package:nothing/features/user_management/domain/repositories/user_repository.dart';
 import 'package:nothing/features/user_management/data/datasources/local_storage.dart';
 
+import 'features/user_management/domain/entities/user_entity.dart';
 import 'features/user_management/domain/usecases/get_users_usecase.dart';
 import 'package:nothing/features/user_management/presentation/register_presenter/widgets/register_form.dart';
+
+import 'features/user_profile/presentation/widgets/user_profile_form.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +42,8 @@ void main() async {
     networkInfo: networkInfo,
   );
 
+  //DatabaseInitializer.clearDatabase(database);
+
   final getAllUsersUseCase = GetAllUsersUseCase(userRepository);
 
   await getAllUsersUseCase.call().then((result) {
@@ -46,6 +52,18 @@ void main() async {
       (users) => users.forEach((user) => print(user)),
     );
   });
+
+// void printCurrentUser(UserEntity user) {
+//   print('Current User:');
+//   print('ID: ${user.id}');
+//   print('Username: ${user.username}');
+//   print('Email: ${user.email}');
+// }
+//   final getCurrentUserUsecase = GetCurrentUserUsecase(userRepository);
+//   final currentUser = await getCurrentUserUsecase.call();
+//   printCurrentUser(currentUser);
+  
+
 
   runApp(MyApp(
     userRepository: userRepository,
@@ -67,19 +85,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.amber,
       ),
       home:
-          // MultiBlocProvider(
-          // providers: [
-          //   BlocProvider<RegisterBloc>(
-          //     create: (_) => RegisterBloc(registerUserUseCase: RegisterUserUseCase(userRepository)),
-          //   ),
-          //   BlocProvider<LoginBloc>(
-          //      create: (_) => LoginBloc(loginUserUseCase: LoginUserUseCase(userRepository)),
-          //    ),
-          // ],
-          // child:
-
-          //ExpenseDetails(),
-          //ExpenseDetailsPage(),
+          //UserProfileForm(userRepository: userRepository),
 
           RegisterForm(userRepository: userRepository),
 
