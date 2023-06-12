@@ -14,7 +14,7 @@ class ExpenseDetailsPage extends StatelessWidget {
               //color: Colors.blue,
               image: DecorationImage(
                 image: AssetImage("assets/images/view_expense.png"),
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               ),
             ),
           ),

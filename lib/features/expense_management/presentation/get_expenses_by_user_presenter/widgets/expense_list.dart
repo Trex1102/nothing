@@ -6,14 +6,14 @@ class DailyExpense extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250,
+      height: 170,
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(50),
+      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
       child: Expanded(
         child: Column(children: [
           Text(
             "Today's Expense",
-            style: customTextStyle.largeTextStyle,
+            style: customTextStyle.mediumTextStyle,
           ),
           Text('৳000', style: customTextStyle.largeTextStyle),
         ]),
@@ -28,7 +28,7 @@ class ExpenseTile extends StatelessWidget {
     return Container(
       height: 55,
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Color.fromARGB(255, 217, 217, 217),

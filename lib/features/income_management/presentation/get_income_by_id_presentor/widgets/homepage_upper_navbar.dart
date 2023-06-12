@@ -15,6 +15,12 @@ class HomepageUpperNavbar extends StatelessWidget {
           backgroundColor: Colors.white,
           bottom: TabBar(
             labelStyle: CustomTextStyle.defaultTextStyle,
+            indicator: BoxDecoration(
+              border: Border(
+                left: BorderSide(color: Colors.black), // provides to left side
+                right: BorderSide(color: Colors.black), // for right side
+              ),
+            ),
             tabs: [
               Tab(
                 text: 'Expense',

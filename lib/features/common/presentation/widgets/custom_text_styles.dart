@@ -6,7 +6,9 @@ class CustomTextStyle {
     fontSize: 16,
     fontFamily: GoogleFonts.mPlusRounded1c().fontFamily,
   );
+
+  final mediumTextStyle = defaultTextStyle.copyWith(fontSize: 30);
   final largeTextStyle =
-      defaultTextStyle.copyWith(fontSize: 40, fontWeight: FontWeight.bold);
+      defaultTextStyle.copyWith(fontSize: 50, fontWeight: FontWeight.bold);
   final labelTextStyle = defaultTextStyle.copyWith(fontWeight: FontWeight.bold);
 }
