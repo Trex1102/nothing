@@ -54,7 +54,7 @@ class _RegisterFormState extends s.State<RegisterForm> {
             body: Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/register_bg.png'),
+                    image: AssetImage('assets/images/register_login_bg.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -285,8 +285,6 @@ class _RegisterFormState extends s.State<RegisterForm> {
                                   height: 10,
                                 ),
                                 Positioned(
-                                  left: 56,
-                                  top: 707,
                                   child: Opacity(
                                     opacity: 0.50,
                                     child: MouseRegion(
