@@ -14,25 +14,28 @@ class CustomBottomNavBar extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.list,
-            size: 40,
+            Icons.format_list_bulleted,
+            size: 35,
           ),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.bar_chart, size: 35),
-          label: 'Search',
+          label: '',
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.person,
+            Icons.bar_chart,
             size: 35,
           ),
-          label: 'Profile',
+          label: '',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.account_circle,
+            size: 35,
+          ),
+          label: '',
         ),
       ],
-      selectedItemColor:
-          Color.fromARGB(255, 255, 191, 0), // Color for the selected tab's icon
+      selectedItemColor: Color.fromARGB(255, 255, 191, 0),
+      unselectedItemColor: Colors.black, // Color for the selected tab's icon
     );
   }
 }

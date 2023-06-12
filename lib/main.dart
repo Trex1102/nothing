@@ -15,8 +15,11 @@ import 'package:nothing/features/user_management/data/repositories/user_reposito
 import 'package:nothing/features/user_management/domain/repositories/user_repository.dart';
 import 'package:nothing/features/user_management/data/datasources/local_storage.dart';
 
+import 'features/statistics/presentation/pages/statistics_screen.dart';
 import 'features/user_management/domain/usecases/get_users_usecase.dart';
 import 'package:nothing/features/user_management/presentation/register_presenter/widgets/register_form.dart';
+
+import 'features/statistics/presentation/widgets/pie_chart.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -83,7 +86,8 @@ class MyApp extends StatelessWidget {
 
           //ExpenseDetails(),
           //ExpenseDetailsPage(),
-          HomepageUpperNavbar(),
+          // HomepageUpperNavbar(),
+          StatisticsScreen(),
 
       //RegisterForm(userRepository: userRepository),
 
