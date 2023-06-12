@@ -8,7 +8,7 @@ class HomepageUpperNavbar extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          bottom: TabBar(
+          bottom: const TabBar(
             tabs: [
               Tab(text: 'Expense'),
               Tab(text: 'Income'),
@@ -24,20 +24,24 @@ class HomepageUpperNavbar extends StatelessWidget {
 }
 
 class ExpenseTab extends StatelessWidget {
+  const ExpenseTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Replace with your expense content
-    return Center(
+    return const Center(
       child: Text('Expense Tab Content'),
     );
   }
 }
 
 class IncomeTab extends StatelessWidget {
+  const IncomeTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Replace with your income content
-    return Center(
+    return const Center(
       child: Text('Income Tab Content'),
     );
   }
