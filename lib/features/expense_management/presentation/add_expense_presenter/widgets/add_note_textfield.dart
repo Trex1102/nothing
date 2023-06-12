@@ -7,30 +7,38 @@ class AddNoteTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: 20,
-          child: const Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(Icons.edit, color: Colors.grey),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'Add a Note',
-                  style: TextStyle(fontSize: 16, fontFamily: 'MPlusRounded1C', color: Colors.grey),
+    return Padding(
+      padding: const EdgeInsets.only(left: 25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 20,
+            child: const Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.edit, color: Colors.grey),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'Add a Note',
+                    style: TextStyle(fontSize: 16, fontFamily: 'MPlusRounded1C', color: Colors.grey),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        const Divider(
-          color: Colors.grey,
-          thickness: 1,
-        ),
-      ],
+          Container(
+            width: MediaQuery.of(context).size.width * 0.85,
+            child: Center(
+              child: Divider(
+                color: Colors.grey,
+                thickness: 1,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
