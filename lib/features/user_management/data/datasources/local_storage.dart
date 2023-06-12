@@ -35,6 +35,16 @@ Future<UserModel> loginUser(String email, String password) async {
     return userList.map((json) => UserModel.fromJson(json)).toList();
   }
 
+    Future<UserModel> getCurrentUser() async {
+    final queryResult = await database.query('users');
+    if (queryResult.isNotEmpty) {
+      final userMap = queryResult.first;
+      return UserModel.fromJson(userMap);
+    } else {
+      throw Exception('User profile not found');
+    }
+  }
+
   @override
   Future<UserModel> getUserByUsername(String username) async {
     final result = await database.query(
