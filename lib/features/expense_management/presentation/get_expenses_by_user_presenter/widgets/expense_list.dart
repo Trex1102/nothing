@@ -15,7 +15,7 @@ class DailyExpense extends StatelessWidget {
             "Today's Expense",
             style: customTextStyle.largeTextStyle,
           ),
-          Text('000', style: customTextStyle.largeTextStyle),
+          Text('৳000', style: customTextStyle.largeTextStyle),
         ]),
       ),
     );

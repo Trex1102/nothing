@@ -15,7 +15,7 @@ class RemainingCash extends StatelessWidget {
             "Remaining Cash",
             style: customTextStyle.largeTextStyle,
           ),
-          Text('000', style: customTextStyle.largeTextStyle),
+          Text('৳000', style: customTextStyle.largeTextStyle),
         ]),
       ),
     );
