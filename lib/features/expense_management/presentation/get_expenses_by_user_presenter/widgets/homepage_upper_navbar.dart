@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nothing/features/expense_management/presentation/get_expenses_by_user_presenter/widgets/expense_list.dart';
+
+import 'expense_tab.dart';
 
 class HomepageUpperNavbar extends StatelessWidget {
   @override
@@ -23,17 +26,17 @@ class HomepageUpperNavbar extends StatelessWidget {
   }
 }
 
-class ExpenseTab extends StatelessWidget {
-  const ExpenseTab({super.key});
+// class ExpenseTab extends StatelessWidget {
+//   const ExpenseTab({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    // Replace with your expense content
-    return const Center(
-      child: Text('Expense Tab Content'),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     // Replace with your expense content
+//     return const Center(
+//       child: Text('Expense Tab Content'),
+//     );
+//   }
+// }
 
 class IncomeTab extends StatelessWidget {
   const IncomeTab({super.key});

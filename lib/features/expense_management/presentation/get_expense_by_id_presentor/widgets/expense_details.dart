@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../../common/presentation/widgets/custom_text_styles.dart';
 import 'upper_navbar.dart';
 
 class ShowDate extends StatelessWidget {
@@ -34,8 +35,9 @@ class ShowDate extends StatelessWidget {
 }
 
 class ExpenseDetails extends StatelessWidget {
-  const ExpenseDetails({super.key});
+  ExpenseDetails({super.key});
 
+  final customTextStyle = CustomTextStyle();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -64,7 +66,7 @@ class ExpenseDetails extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 5.0),
                           child: Text(
                             "Amount",
-                            style: LabelTextStyle.defaultTextStyle,
+                            style: customTextStyle.labelTextStyle,
                           ),
                         ),
                       ),
@@ -73,7 +75,7 @@ class ExpenseDetails extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 5.0),
                           child: Text(
                             ":",
-                            style: LabelTextStyle.defaultTextStyle,
+                            style: customTextStyle.labelTextStyle,
                           ),
                         ),
                       ),
@@ -95,14 +97,14 @@ class ExpenseDetails extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 5.0),
                           child: Text(
                             "Category",
-                            style: LabelTextStyle.defaultTextStyle,
+                            style: customTextStyle.labelTextStyle,
                           ),
                         ),
                       ),
                       TableCell(
                         child: Text(
                           ":",
-                          style: LabelTextStyle.defaultTextStyle,
+                          style: customTextStyle.labelTextStyle,
                         ),
                       ),
                       TableCell(
@@ -123,14 +125,14 @@ class ExpenseDetails extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 5.0),
                           child: Text(
                             "Note",
-                            style: LabelTextStyle.defaultTextStyle,
+                            style: customTextStyle.labelTextStyle,
                           ),
                         ),
                       ),
                       TableCell(
                         child: Text(
                           ":",
-                          style: LabelTextStyle.defaultTextStyle,
+                          style: customTextStyle.labelTextStyle,
                         ),
                       ),
                       TableCell(
@@ -151,14 +153,14 @@ class ExpenseDetails extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 5.0),
                           child: Text(
                             "Day",
-                            style: LabelTextStyle.defaultTextStyle,
+                            style: customTextStyle.labelTextStyle,
                           ),
                         ),
                       ),
                       TableCell(
                         child: Text(
                           ":",
-                          style: LabelTextStyle.defaultTextStyle,
+                          style: customTextStyle.labelTextStyle,
                         ),
                       ),
                       TableCell(
@@ -178,7 +180,7 @@ class ExpenseDetails extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: Text(
                           "Weather",
-                          style: LabelTextStyle.defaultTextStyle,
+                          style: customTextStyle.labelTextStyle,
                         ),
                       ),
                     ),
@@ -187,7 +189,7 @@ class ExpenseDetails extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 5.0),
                         child: Text(
                           ":",
-                          style: LabelTextStyle.defaultTextStyle,
+                          style: customTextStyle.labelTextStyle,
                         ),
                       ),
                     ),

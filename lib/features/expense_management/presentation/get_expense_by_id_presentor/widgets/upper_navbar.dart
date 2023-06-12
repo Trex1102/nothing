@@ -1,22 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:nothing/features/expense_management/presentation/add_expense_presenter/pages/add_expense_screen.dart';
-import 'package:nothing/features/expense_management/presentation/get_expenses_by_user_presenter/widgets/homepage_upper_navbar.dart';
-
-class CustomTextStyle {
-  static TextStyle defaultTextStyle = TextStyle(
-    fontSize: 16,
-    fontFamily: GoogleFonts.mPlusRounded1c().fontFamily,
-  );
-}
-
-class LabelTextStyle {
-  static TextStyle defaultTextStyle = TextStyle(
-    fontSize: 16,
-    fontFamily: GoogleFonts.mPlusRounded1c().fontFamily,
-    fontWeight: FontWeight.bold,
-  );
-}
+import 'package:nothing/features/homepage/presentation/pages/expense_screen.dart';
 
 class UpperNavbar extends StatelessWidget {
   @override
@@ -34,7 +18,7 @@ class UpperNavbar extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => HomepageUpperNavbar()),
+                          builder: (context) => HomepageExpenseScreen()),
                     );
                   },
                   icon: const Icon(Icons.arrow_back)),

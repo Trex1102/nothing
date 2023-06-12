@@ -34,7 +34,7 @@ class ExpenseDetailsPage extends StatelessWidget {
             left: 20,
             child: ShowDate(),
           ),
-          const Positioned(
+          Positioned(
             child: ExpenseDetails(),
           ),
         ],
