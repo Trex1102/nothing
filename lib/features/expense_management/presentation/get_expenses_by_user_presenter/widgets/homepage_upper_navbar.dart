@@ -20,8 +20,6 @@ class HomepageUpperNavbar extends StatelessWidget {
         ),
       ),
     );
-
-    throw UnimplementedError();
   }
 }
 

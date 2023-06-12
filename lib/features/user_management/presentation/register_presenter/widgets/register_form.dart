@@ -412,7 +412,7 @@ class _RegisterFormState extends s.State<RegisterForm> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
