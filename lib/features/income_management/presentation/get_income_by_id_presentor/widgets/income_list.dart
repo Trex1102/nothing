@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nothing/features/common/presentation/widgets/custom_text_styles.dart';
 
-class DailyExpense extends StatelessWidget {
+class RemainingCash extends StatelessWidget {
   final customTextStyle = CustomTextStyle();
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class DailyExpense extends StatelessWidget {
       child: Expanded(
         child: Column(children: [
           Text(
-            "Today's Expense",
+            "Remaining Cash",
             style: customTextStyle.largeTextStyle,
           ),
           Text('000', style: customTextStyle.largeTextStyle),
@@ -22,7 +22,7 @@ class DailyExpense extends StatelessWidget {
   }
 }
 
-class ExpenseTile extends StatelessWidget {
+class IncomeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

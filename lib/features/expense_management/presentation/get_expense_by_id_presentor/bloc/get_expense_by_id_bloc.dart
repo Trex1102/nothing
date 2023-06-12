@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import '../../../domain/entities/expense_entity.dart';
 import '../../../domain/usecases/get_expense_by_id.dart';
 
 part 'get_expense_by_id_event.dart';
@@ -27,10 +28,15 @@ class GetExpenseByIdBloc
 
       result.fold(
         (failure) => emit(state.copyWith(status: GetExpenseByIdStatus.failure)),
-        (_) => emit(state.copyWith(status: GetExpenseByIdStatus.success)),
+        (expense) => emit(state.copyWith(
+          status: GetExpenseByIdStatus.success,
+          expense: expense,
+        )),
       );
     } catch (e) {
-      emit(state.copyWith(status: GetExpenseByIdStatus.failure));
+      emit(state.copyWith(
+        status: GetExpenseByIdStatus.failure,
+      ));
     }
   }
 }

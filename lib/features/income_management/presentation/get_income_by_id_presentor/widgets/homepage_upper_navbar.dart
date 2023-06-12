@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nothing/features/common/presentation/widgets/custom_text_styles.dart';
-import 'package:nothing/features/expense_management/presentation/get_expenses_by_user_presenter/widgets/expense_list.dart';
-import 'package:nothing/features/income_management/presentation/get_income_by_id_presentor/widgets/income_tab.dart';
+import 'package:nothing/features/expense_management/presentation/get_expenses_by_user_presenter/widgets/expense_tab.dart';
 
-import 'expense_tab.dart';
+import 'income_tab.dart';
 
 class HomepageUpperNavbar extends StatelessWidget {
   @override
