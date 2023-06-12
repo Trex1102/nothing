@@ -1,0 +1,213 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'upper_navbar.dart';
+
+class ShowDate extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 70.0, horizontal: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            width: 180,
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: const Color.fromRGBO(217, 217, 217, 1),
+            ),
+            child: Text(
+              '6 April, 2023',
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: GoogleFonts.mPlusRounded1c().fontFamily,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const Icon(Icons.cloud),
+        ],
+      ),
+    );
+  }
+}
+
+class ExpenseDetails extends StatelessWidget {
+  const ExpenseDetails({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Scaffold(
+      body: Container(
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.symmetric(horizontal: 50),
+                child: Table(
+                  columnWidths: const {
+                    0: FlexColumnWidth(),
+                    1: IntrinsicColumnWidth(),
+                    2: FlexColumnWidth(),
+                  },
+                  children: [
+                    TableRow(
+                      children: [
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5.0),
+                            child: Text(
+                              "Amount",
+                              style: LabelTextStyle.defaultTextStyle,
+                            ),
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5.0),
+                            child: Text(
+                              ":",
+                              style: LabelTextStyle.defaultTextStyle,
+                            ),
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5.0),
+                            child: Text(
+                              " 500",
+                              style: CustomTextStyle.defaultTextStyle,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5.0),
+                            child: Text(
+                              "Category",
+                              style: LabelTextStyle.defaultTextStyle,
+                            ),
+                          ),
+                        ),
+                        TableCell(
+                          child: Text(
+                            ":",
+                            style: LabelTextStyle.defaultTextStyle,
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5.0),
+                            child: Text(
+                              " cat",
+                              style: CustomTextStyle.defaultTextStyle,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5.0),
+                            child: Text(
+                              "Note",
+                              style: LabelTextStyle.defaultTextStyle,
+                            ),
+                          ),
+                        ),
+                        TableCell(
+                          child: Text(
+                            ":",
+                            style: LabelTextStyle.defaultTextStyle,
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5.0),
+                            child: Text(
+                              " notee",
+                              style: CustomTextStyle.defaultTextStyle,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5.0),
+                            child: Text(
+                              "Day",
+                              style: LabelTextStyle.defaultTextStyle,
+                            ),
+                          ),
+                        ),
+                        TableCell(
+                          child: Text(
+                            ":",
+                            style: LabelTextStyle.defaultTextStyle,
+                          ),
+                        ),
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5.0),
+                            child: Text(
+                              " Thursday",
+                              style: CustomTextStyle.defaultTextStyle,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    TableRow(children: [
+                      TableCell(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 5.0),
+                          child: Text(
+                            "Weather",
+                            style: LabelTextStyle.defaultTextStyle,
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 5.0),
+                          child: Text(
+                            ":",
+                            style: LabelTextStyle.defaultTextStyle,
+                          ),
+                        ),
+                      ),
+                      TableCell(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 5.0),
+                          child: Text(
+                            " rainy",
+                            style: CustomTextStyle.defaultTextStyle,
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
