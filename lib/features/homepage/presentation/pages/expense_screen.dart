@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../common/presentation/widgets/bottom_navbar.dart';
+import '../../../expense_management/presentation/add_expense_presenter/pages/add_expense_screen.dart';
 import '../../../expense_management/presentation/get_expenses_by_user_presenter/widgets/expense_tab.dart';
-import '../../../income_management/presentation/get_income_by_id_presentor/widgets/income_tab.dart';
+import '../../../income_management/presentation/get_income_by_user_id_presentor/widgets/income_tab.dart';
 import '../../../statistics/presentation/pages/statistics_screen.dart';
 import '../widgets/upper_navbar.dart';
 
@@ -25,7 +26,10 @@ class HomepageExpenseScreen extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            // Add your onPressed code here!
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddExpenseScreen()),
+            );
           },
           child: const Icon(Icons.add),
           backgroundColor: Color.fromARGB(255, 255, 191, 0),
