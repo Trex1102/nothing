@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nothing/features/common/presentation/widgets/custom_text_styles.dart';
-import 'package:nothing/features/expense_management/presentation/get_expenses_by_user_presenter/widgets/homepage_upper_navbar.dart';
 
 import '../../../common/presentation/widgets/bottom_navbar.dart';
+import '../../../homepage/presentation/pages/expense_screen.dart';
 import '../widgets/pie_chart.dart';
 import '../widgets/stat_description.dart';
 
@@ -71,7 +71,8 @@ class StatisticsScreen extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomepageUpperNavbar()),
+                MaterialPageRoute(
+                    builder: (context) => HomepageExpenseScreen()),
               );
             }
           },

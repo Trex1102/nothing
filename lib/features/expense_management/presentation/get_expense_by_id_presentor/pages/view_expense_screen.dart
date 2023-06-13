@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/expense_details.dart';
-import '../widgets/upper_navbar.dart';
+import '../widgets/view_expense_upper_navbar.dart';
 
 class ExpenseDetailsPage extends StatelessWidget {
   @override

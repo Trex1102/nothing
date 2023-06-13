@@ -1,21 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:nothing/features/expense_management/presentation/get_expenses_by_user_presenter/widgets/expense_list.dart';
-import 'package:nothing/features/expense_management/presentation/get_expenses_by_user_presenter/widgets/homepage_upper_navbar.dart';
+
+import '../../../common/presentation/widgets/bottom_navbar.dart';
+import '../../../expense_management/presentation/add_expense_presenter/pages/add_expense_screen.dart';
+import '../../../expense_management/presentation/get_expenses_by_user_presenter/widgets/expense_tab.dart';
+import '../../../income_management/presentation/get_income_by_user_id_presentor/widgets/income_tab.dart';
+import '../../../statistics/presentation/pages/statistics_screen.dart';
+import '../widgets/upper_navbar.dart';
 
 class HomepageExpenseScreen extends StatelessWidget {
-  const HomepageExpenseScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        alignment: Alignment.center,
-        child: Column(
+    return DefaultTabController(
+      length: 2, // Number of tabs
+      child: Scaffold(
+        //appBar: setAppBar(),
+        body: Column(
           children: [
-            HomepageUpperNavbar(),
-            //DailyExpense(),
-            //ExpenseTile(),
+            setAppBar(),
+            Expanded(
+              child: TabBarView(
+                children: [ExpenseTab(), IncomeTab()],
+              ),
+            ),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddExpenseScreen()),
+            );
+          },
+          child: const Icon(Icons.add),
+          backgroundColor: Color.fromARGB(255, 255, 191, 0),
+        ),
+        bottomNavigationBar: CustomBottomNavBar(
+          currentIndex: 0,
+          onTap: (int index) {
+            if (index == 1) {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => StatisticsScreen(),
+                ),
+              );
+            }
+          },
         ),
       ),
     );
