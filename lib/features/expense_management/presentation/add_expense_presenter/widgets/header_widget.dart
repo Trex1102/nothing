@@ -15,23 +15,18 @@ class HeaderWidget extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () {
-                      // Perform action when the close button is pressed
-                    },
-                  ),
-                  SizedBox(width: 95),
-                  Text(
-                    "New Expense",
-                    style: TextStyle(fontSize: 16, fontFamily: 'MPlusRounded1C', fontWeight: FontWeight.bold),
-                  ),
-                ],
+              IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  // Perform action when the close button is pressed
+                },
               ),
-              SizedBox(width: 90),
+              const Text(
+                "New Expense",
+                style: TextStyle(fontSize: 16, fontFamily: 'MPlusRounded1C', fontWeight: FontWeight.bold),
+              ),
               Icon(
                 getWeatherIcon(weatherIcon),
                 size: 20,
