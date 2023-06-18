@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nothing/features/homepage/presentation/pages/expense_screen.dart';
 import 'package:nothing/features/user_management/domain/entities/user_entity.dart';
 import 'package:nothing/features/user_management/domain/usecases/login_user_usecase.dart';
 import 'package:nothing/features/user_management/presentation/register_presenter/widgets/register_form.dart';
@@ -62,9 +63,10 @@ class _LoginFormState extends State<LoginForm> {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      
-                                        builder: (context) =>
-                                            UserProfileForm(userRepository: widget.userRepository,)),
+                                      builder: (context) =>
+                                          //UserProfileForm(userRepository: widget.userRepository,)
+                                          HomepageExpenseScreen(),
+                                    ),
                                   );
                                 },
                                 child: const Text('OK'),

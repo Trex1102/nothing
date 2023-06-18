@@ -5,6 +5,7 @@ import '../../../expense_management/presentation/add_expense_presenter/pages/add
 import '../../../expense_management/presentation/get_expenses_by_user_presenter/widgets/expense_tab.dart';
 import '../../../income_management/presentation/get_income_by_user_id_presentor/widgets/income_tab.dart';
 import '../../../statistics/presentation/pages/statistics_screen.dart';
+import '../../../user_profile/presentation/widgets/user_profile_form.dart';
 import '../widgets/upper_navbar.dart';
 
 class HomepageIncomeScreen extends StatelessWidget {
@@ -44,6 +45,13 @@ class HomepageIncomeScreen extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => StatisticsScreen(),
                 ),
+              );
+            }
+            else if (index == 2) {
+              Navigator.pop(context);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => UserProfilePage()),
               );
             }
           },
