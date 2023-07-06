@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:nothing/core/network/network_info_impl.dart';
 import 'package:nothing/core/test/add_expense_bloc_test.dart';
@@ -43,7 +44,9 @@ void main() async {
     networkInfo: networkInfo,
   );
 
-  //DatabaseInitializer.clearDatabase(database);
+  //DatabaseInitializer.dropDatabase(database);
+
+  DatabaseInitializer.clearDatabase(database);
 
   final getAllUsersUseCase = GetAllUsersUseCase(userRepository);
 
@@ -54,17 +57,17 @@ void main() async {
     );
   });
 
-// void printCurrentUser(UserEntity user) {
-//   print('Current User:');
-//   print('ID: ${user.id}');
-//   print('Username: ${user.username}');
-//   print('Email: ${user.email}');
-// }
-//   final getCurrentUserUsecase = GetCurrentUserUsecase(userRepository);
-//   final currentUser = await getCurrentUserUsecase.call();
-//   printCurrentUser(currentUser);
-  
+  // void printCurrentUser(UserEntity user) {
+  //   print('Current User:');
+  //   print('ID: ${user.id}');
+  //   print('Username: ${user.username}');
+  //   print('Email: ${user.email}');
+  //   print('isLoggedIn: ${user.isLoggedIn}');
+  // }
 
+  // final getCurrentUserUsecase = GetCurrentUserUsecase(userRepository);
+  // final currentUser = await getCurrentUserUsecase.call();
+  // printCurrentUser(currentUser);
 
   runApp(MyApp(
     userRepository: userRepository,
@@ -86,9 +89,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.amber,
       ),
       home:
-          //UserProfileForm(userRepository: userRepository),
+        //UserProfilePage(),
 
-      //RegisterForm(userRepository: userRepository),
+          RegisterForm(userRepository: userRepository),
 
       //),
       // initialRoute: '/register',
@@ -100,154 +103,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// class MyApp extends StatelessWidget {
-//   final UserRepository userRepository;
 
-//   MyApp({required this.userRepository});
-
-//   @override
-// Widget build(BuildContext context) {
-//   return MaterialApp(
-//     title: 'demo',
-//     home: MultiBlocProvider(
-//       providers: [
-//         BlocProvider<LoginBloc>(
-//           create: (_) => LoginBloc(loginUserUseCase: LoginUserUseCase(userRepository)),
-//         ),
-//         BlocProvider<RegisterBloc>(
-//           create: (_) => RegisterBloc(registerUserUseCase: RegisterUserUseCase(userRepository)),
-//         ),
-//       ],
-//       child: HomePage(),
-//     ),
-//   );
-// }
-
-// }
-
-// class HomePage extends StatelessWidget {
-//   const HomePage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final registerBloc = BlocProvider.of<RegisterBloc>(context);
-//     final loginBloc = BlocProvider.of<LoginBloc>(context);
-
-//     return Scaffold(
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             BlocConsumer<RegisterBloc, RegisterState>(
-//               listener: (context, state) {
-//                 if (state is RegisterSuccess) {
-//                   showDialog(
-//                       context: context,
-//                       builder: (_) => AlertDialog(
-//                             title: Text('Reg success'),
-//                             content: Text('suc'),
-//                             actions: [
-//                               TextButton(
-//                                 onPressed: () {
-//                                   Navigator.pop(context);
-//                                 },
-//                                 child: Text('ok'),
-//                               ),
-//                             ],
-//                           ));
-//                 } else if (state is RegisterFailure) {
-//                   showDialog(
-//                       context: context,
-//                       builder: (_) => AlertDialog(
-//                             title: Text('Reg failed'),
-//                             content: Text('ff'),
-//                             actions: [
-//                               TextButton(
-//                                 onPressed: () {
-//                                   Navigator.pop(context);
-//                                 },
-//                                 child: Text('ok'),
-//                               ),
-//                             ],
-//                           ));
-//                 }
-//               },
-//               builder: (context, state) {
-//                 return ElevatedButton(
-//                   onPressed: () {
-//                     registerBloc.add(
-//                       RegisterButtonPressed(
-//                         user: UserEntity(
-//                           id: '1',
-//                           username: 'ibasa',
-//                           email: 'ii@example.com',
-//                           password: 'pass123',
-//                         ),
-//                       ),
-//                     );
-//                   },
-//                   child: const Text('Register'),
-//                 );
-//               },
-//             ),
-//             BlocConsumer<LoginBloc, LoginState>(
-//           listener: (context, state) {
-//             if (state is LoginSuccess) {
-//               showDialog(
-//                   context: context,
-//                   builder: (_) => AlertDialog(
-//                         title: Text('login success'),
-//                         content: Text('suc'),
-//                         actions: [
-//                           TextButton(
-//                             onPressed: () {
-//                               Navigator.pop(context);
-//                             },
-//                             child: Text('ok'),
-//                           ),
-//                         ],
-//                       ));
-//             } else if (state is LoginFailure) {
-//               showDialog(
-//                   context: context,
-//                   builder: (_) => AlertDialog(
-//                         title: Text('login failed'),
-//                         content: Text('ff'),
-//                         actions: [
-//                           TextButton(
-//                             onPressed: () {
-//                               Navigator.pop(context);
-//                             },
-//                             child: Text('ok'),
-//                           ),
-//                         ],
-//                       ));
-//             }
-//           },
-//           builder: (context, state) {
-//             return ElevatedButton(
-//               onPressed: () {
-//                 loginBloc.add(
-//                   LoginButtonPressed(
-//                     user: UserEntity(
-//                       id: '1',
-//                       username: 'ibasa',
-//                       email: 'ii@example.com',
-//                       password: 'pass123',
-//                     ),
-//                   ),
-//                 );
-//               },
-//               child: const Text('Login'),
-//             );
-//           },
-//         ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 // import 'package:flutter/material.dart';
 
 // import 'features/expense_management/presentation/add_expense_presenter/widgets/show_amount_field.dart';

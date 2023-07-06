@@ -23,6 +23,7 @@ class UserRepositoryImpl implements UserRepository {
           email: user.email,
           password: user.password,
           username: user.username,
+          isLoggedIn: user.isLoggedIn
         );
         await userDataSource.registerUser(userModel);
       } on DatabaseException {
@@ -43,12 +44,33 @@ class UserRepositoryImpl implements UserRepository {
           email: userModel.email,
           username: userModel.username,
           password: userModel.password,
+          isLoggedIn: userModel.isLoggedIn
         );
       } on DatabaseException {
         throw RepositoryException();
       }
     } else {
       throw NetworkException();
+    }
+  }
+
+  @override
+  Future<void> setCurrentUser(UserEntity userEntity) async {
+    
+  }
+
+    @override
+  Future<UserEntity> getCurrentUser() async {
+    try {
+      final userModel = await userDataSource.getCurrentUser();
+      return UserEntity(
+          id: userModel.id,
+          username: userModel.username,
+          email: userModel.email,
+          password: userModel.password,
+          isLoggedIn: userModel.isLoggedIn);
+    } catch (e) {
+      throw Exception('Failed to get user profile user repo impl');
     }
   }
 
@@ -63,6 +85,7 @@ class UserRepositoryImpl implements UserRepository {
                   email: model.email,
                   username: model.username,
                   password: model.password,
+                  isLoggedIn: model.isLoggedIn
                 ))
             .toList();
         //return users;
@@ -74,19 +97,25 @@ class UserRepositoryImpl implements UserRepository {
     }
   }
 
-  @override
-  Future<UserEntity> getCurrentUser() async {
-    try {
-      final userModel = await userDataSource.getCurrentUser();
-      return UserEntity(
-          id: userModel.id,
-          username: userModel.username,
-          email: userModel.email,
-          password: userModel.password);
-    } catch (e) {
-      throw Exception('Failed to get user profile');
-    }
-  }
+  //  @override
+  // Future<void> updateUser(UserEntity user) async {
+  //   if (await networkInfo.isConnected) {
+  //     try {
+  //       final userModel = UserModel(
+  //         id: user.id,
+  //         email: user.email,
+  //         password: user.password,
+  //         username: user.username,
+  //         isLoggedIn: user.isLoggedIn,
+  //       );
+  //       await userDataSource.updateUser(userModel);
+  //     } on DatabaseException {
+  //       throw RepositoryException();
+  //     }
+  //   } else {
+  //     throw NetworkException();
+  //   }
+  // }
 
   @override
   Future<bool> isUsernameTaken(String username) async {

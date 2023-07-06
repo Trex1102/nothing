@@ -33,6 +33,7 @@ class RegisterUserUseCase {
       username: username,
       email: email,
       password: password,
+      isLoggedIn: "0",
     );
 
     try {

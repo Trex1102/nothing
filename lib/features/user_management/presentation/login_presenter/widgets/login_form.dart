@@ -64,7 +64,7 @@ class _LoginFormState extends State<LoginForm> {
                                     MaterialPageRoute(
                                       
                                         builder: (context) =>
-                                            UserProfileForm(userRepository: widget.userRepository,)),
+                                            UserProfilePage()),
                                   );
                                 },
                                 child: const Text('OK'),
@@ -190,6 +190,7 @@ class _LoginFormState extends State<LoginForm> {
                                       username: '',
                                       email: _emailController.text,
                                       password: _passwordController.text,
+                                      isLoggedIn: '',
                                     ),
                                   ));
                                 },

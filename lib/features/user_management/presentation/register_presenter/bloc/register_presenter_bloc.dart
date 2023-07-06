@@ -29,7 +29,10 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       final password = event.user.password;
 
       final result = await registerUserUseCase.call(
-          username: username, email: email, password: password);
+          username: username,
+          email: email,
+          password: password,
+          );
 
       result.fold((failure) => emit(RegisterFailure('Register failed')),
           (_) => emit(RegisterSuccess()));

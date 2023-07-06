@@ -7,4 +7,6 @@ abstract class UserDataSource {
   Future<UserModel> getUserByUsername(String username);
   Future<UserModel> getUserByEmail(String email);
   Future<UserModel> getCurrentUser();
+  
+  //Future<void> updateUser(UserModel userModel);
 }
