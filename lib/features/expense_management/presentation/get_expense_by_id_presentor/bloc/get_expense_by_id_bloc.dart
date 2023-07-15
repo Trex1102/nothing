@@ -23,7 +23,6 @@ class GetExpenseByIdBloc
   ) async {
     try {
       final expenseId = event.expenseId;
-      //final expenseId = '6';
       final result = await getExpenseById.call(expenseId);
 
       result.fold(

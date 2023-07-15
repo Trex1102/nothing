@@ -14,25 +14,61 @@ class ExpenseTab extends StatefulWidget {
 
 class _ExpenseTabState extends State<ExpenseTab> {
   List<ExpenseModel> expenses = [];
-  List<Widget> tiles = [];
+  // List<Widget> tiles = [];
+  Map<String, List<Widget>> tilesByDate = {};
+
   void displayExpenses() {
-    List<Widget> expenseTiles = [];
+    // List<Widget> expenseTiles = [];
+    Map<String, List<Widget>> groupedTiles = {};
 
     for (var expense in expenses) {
-      expenseTiles.add(
-        ExpenseTile(
+      // expenseTiles.add(
+      //   ExpenseTile(
+      //       id: expense.id,
+      //       userId: expense.userId,
+      //       amount: expense.amount,
+      //       categoryId: expense.categoryId,
+      //       date: expense.date,
+      //       note: expense.note,
+      //       time: expense.time),
+      // );
+
+      String date =
+          expense.date; // Assuming `date` is a string in your ExpenseModel
+
+      if (groupedTiles.containsKey(date)) {
+        groupedTiles[date]!.add(
+          ExpenseTile(
             id: expense.id,
             userId: expense.userId,
             amount: expense.amount,
             categoryId: expense.categoryId,
             date: expense.date,
             note: expense.note,
-            time: expense.time),
-      );
+            time: expense.time,
+          ),
+        );
+      } else {
+        groupedTiles[date] = [
+          ExpenseTile(
+            id: expense.id,
+            userId: expense.userId,
+            amount: expense.amount,
+            categoryId: expense.categoryId,
+            date: expense.date,
+            note: expense.note,
+            time: expense.time,
+          ),
+        ];
+      }
     }
 
+    // setState(() {
+    //   tiles = expenseTiles;
+    // });
+
     setState(() {
-      tiles = expenseTiles;
+      tilesByDate = groupedTiles;
     });
   }
 
@@ -53,26 +89,38 @@ class _ExpenseTabState extends State<ExpenseTab> {
         Welcome(),
         DailyExpense(),
         DateManagement(),
-        // Container(
-        //   margin: EdgeInsets.only(left: 22),
-        //   alignment: AlignmentDirectional.topStart,
-        //   child: Row(
-        //     children: [
-        //       Text(
-        //         //date.getToday(),
-        //        DateManagement.getToday(),
-        //         style: CustomTextStyle.defaultTextStyle,
-        //       ),
-        //        IconButton(
-        //     icon: Icon(Icons.calendar_month_rounded),
-        //     onPressed: () => _selectDate(context),
-        //   ),
-        //     ],
+        // Expanded(
+        //   child: ListView(
+        //     children: tiles,
         //   ),
         // ),
+
         Expanded(
-          child: ListView(
-            children: tiles,
+          child: ListView.builder(
+            itemCount: tilesByDate.length,
+            itemBuilder: (context, index) {
+              String date = tilesByDate.keys.elementAt(index);
+              List<Widget> tilesForDate = tilesByDate[date]!;
+
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      date,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  ListView(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    children: tilesForDate,
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ],
