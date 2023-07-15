@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'FinTracker',
       theme: ThemeData(
-        primarySwatch: Colors.amber,
+        primarySwatch: Colors.amber, 
       ),
       home:
           //UserProfileForm(userRepository: userRepository),
