@@ -8,28 +8,18 @@ import '../widgets/stat_description.dart';
 
 class StatisticsScreen extends StatelessWidget {
   final customStyle = CustomTextStyle();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(
-        //   title: Row(
-        //     children: [
-        //       // IconButton(
-        //       //   onPressed: () {},
-        //       //   icon: Icon(Icons.arrow_back),
-        //       // ),
-        //       Icon(
-        //         Icons.account_balance,
-        //         color: Color.fromARGB(255, 217, 191, 0),
-        //       ),
-        //       Text('FinTracker')
-        //     ],
-        //   ),
-        //   // backgroundColor: Color.fromARGB(255, 217, 217, 217),
-        //   backgroundColor: Colors.white,
-        // ),
-        resizeToAvoidBottomInset: true,
-        
+        appBar: AppBar(
+          title: Row(
+            children: [Text('Statistics')],
+          ),
+          // backgroundColor: Color.fromARGB(255, 217, 217, 217),
+          backgroundColor: Colors.white,
+        ),
+        resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
           child: Column(
             children: [
