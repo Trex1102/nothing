@@ -5,7 +5,9 @@ import 'package:nothing/core/network/network_info_impl.dart';
 import 'package:nothing/core/test/add_expense_bloc_test.dart';
 import 'package:nothing/features/expense_management/presentation/get_expense_by_id_presentor/pages/view_expense_screen.dart';
 import 'package:nothing/features/expense_management/presentation/get_expense_by_id_presentor/widgets/expense_details.dart';
+import 'package:nothing/features/homepage/presentation/pages/expense_screen.dart';
 import 'package:nothing/features/user_management/domain/usecases/get_current_user_usecase.dart';
+import 'package:nothing/features/user_management/presentation/login_presenter/widgets/login_form.dart';
 import 'core/database/database_initializer.dart';
 
 // Import the necessary files for the bloc
@@ -15,6 +17,7 @@ import 'package:nothing/features/user_management/data/repositories/user_reposito
 import 'package:nothing/features/user_management/domain/repositories/user_repository.dart';
 import 'package:nothing/features/user_management/data/datasources/local_storage.dart';
 
+import 'features/statistics/presentation/pages/statistics_screen.dart';
 import 'features/user_management/domain/entities/user_entity.dart';
 import 'features/user_management/domain/usecases/get_users_usecase.dart';
 import 'package:nothing/features/user_management/presentation/register_presenter/widgets/register_form.dart';
@@ -68,6 +71,17 @@ void main() async {
   // final getCurrentUserUsecase = GetCurrentUserUsecase(userRepository);
   // final currentUser = await getCurrentUserUsecase.call();
   // printCurrentUser(currentUser);
+  // void printCurrentUser(UserEntity user) {
+  //   print('Current User:');
+  //   print('ID: ${user.id}');
+  //   print('Username: ${user.username}');
+  //   print('Email: ${user.email}');
+  //   print('isLoggedIn: ${user.isLoggedIn}');
+  // }
+
+  // final getCurrentUserUsecase = GetCurrentUserUsecase(userRepository);
+  // final currentUser = await getCurrentUserUsecase.call();
+  // printCurrentUser(currentUser);
 
   runApp(MyApp(
     userRepository: userRepository,
@@ -80,6 +94,7 @@ class MyApp extends StatelessWidget {
   final UserRepository userRepository;
 
   MyApp({required this.userRepository});
+  final PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -93,13 +108,13 @@ class MyApp extends StatelessWidget {
 
           RegisterForm(userRepository: userRepository),
 
-      //),
-      // initialRoute: '/register',
-      // routes: {
-      //   '/register': (context) => RegisterForm(),
-      //   '/login': (context) => LoginForm(),
-      // },
-    );
+          //),
+          // initialRoute: '/register',
+          // routes: {
+          //   '/register': (context) => RegisterForm(),
+          //   '/login': (context) => LoginForm(),
+          // },
+        ));
   }
 }
 

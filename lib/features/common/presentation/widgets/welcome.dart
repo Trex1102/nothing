@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nothing/features/common/presentation/widgets/custom_text_styles.dart';
+import 'package:nothing/features/common/presentation/widgets/datemanagement.dart';
 
 class Welcome extends StatelessWidget {
+  //DateManagement date = DateManagement();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +18,8 @@ class Welcome extends StatelessWidget {
           style: CustomTextStyle.defaultTextStyle,
         ),
         Text(
-          'date',
+          // date.getToday(),
+          DateManagement.getToday(),
           style: CustomTextStyle.defaultTextStyle,
         ),
       ]),

@@ -18,7 +18,7 @@ class ShowAmountField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
         children: [
-          const SizedBox(width: 50),
+          const SizedBox(width: 95),
           DropdownButton<String>(
             value: selectedCurrency,
             items: _buildCurrencyDropdownItems(),

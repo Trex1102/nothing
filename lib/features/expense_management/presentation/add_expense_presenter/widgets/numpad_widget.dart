@@ -42,6 +42,7 @@ class NumpadWidget extends StatelessWidget {
             ],
           ),
         ),
+
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Row(

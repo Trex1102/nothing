@@ -4,7 +4,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:nothing/core/network/network_info.dart';
 import 'package:nothing/features/user_management/domain/repositories/user_repository.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:nothing/core/network/network_info.dart';
+import 'package:nothing/features/user_management/domain/repositories/user_repository.dart';
 
+import '../../../user_management/data/repositories/user_repository_impl.dart';
 import '../../../user_management/data/repositories/user_repository_impl.dart';
 import '../../../user_management/domain/usecases/get_current_user_usecase.dart';
 import '../bloc/user_profile_bloc.dart';

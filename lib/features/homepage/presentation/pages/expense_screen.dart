@@ -1,22 +1,77 @@
 import 'package:flutter/material.dart';
-import 'package:nothing/features/expense_management/presentation/get_expenses_by_user_presenter/widgets/expense_list.dart';
-import 'package:nothing/features/expense_management/presentation/get_expenses_by_user_presenter/widgets/homepage_upper_navbar.dart';
+
+import '../../../common/presentation/widgets/bottom_navbar.dart';
+import '../../../expense_management/presentation/add_expense_presenter/pages/add_expense_screen.dart';
+import '../../../expense_management/presentation/get_expenses_by_user_presenter/widgets/expense_tab.dart';
+import '../../../income_management/presentation/get_income_by_user_id_presentor/widgets/income_tab.dart';
+import '../../../statistics/presentation/pages/statistics_screen.dart';
+import '../../../user_management/domain/repositories/user_repository.dart';
+import '../../../user_profile/presentation/widgets/user_profile_form.dart';
+import '../widgets/upper_navbar.dart';
+import '../../../user_management/presentation/login_presenter/widgets/login_form.dart';
 
 class HomepageExpenseScreen extends StatelessWidget {
-  const HomepageExpenseScreen({super.key});
-
+  final PageController pageController = PageController(initialPage: 0);
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        alignment: Alignment.center,
-        child: Column(
+    return DefaultTabController(
+      length: 2, // Number of tabs
+      child: Scaffold(
+        //appBar: setAppBar(),
+        body: Column(
           children: [
-            HomepageUpperNavbar(),
-            //DailyExpense(),
-            //ExpenseTile(),
+            setAppBar(),
+            Expanded(
+              child: TabBarView(
+                children: [ExpenseTab(), IncomeTab()],
+              ),
+            ),
           ],
         ),
+
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddExpenseScreen()),
+            );
+          },
+          child: const Icon(Icons.add),
+          backgroundColor: Color.fromARGB(255, 255, 191, 0),
+        ),
+
+        bottomNavigationBar: CustomBottomNavBar(
+          currentIndex: 0,
+          onTap: (int index) async {
+            if (index == 1) {
+              Navigator.pop(context);
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => StatisticsScreen(),
+                ),
+              );
+            } else if (index == 2) {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => UserProfilePage()),
+              );
+            }
+          },
+        ),
+
+        // bottomNavigationBar: CustomBottomNavBar(
+        //   currentIndex: 0,
+        //   pageController: pageController,
+        //   onTap: (int index) {
+        //     pageController.animateToPage(
+        //       index,
+        //       duration: Duration(milliseconds: 300),
+        //       curve: Curves.ease,
+        //     );
+        //   },
+        // ),
       ),
     );
   }
