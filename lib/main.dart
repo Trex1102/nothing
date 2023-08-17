@@ -114,7 +114,7 @@ class MyApp extends StatelessWidget {
           //   '/register': (context) => RegisterForm(),
           //   '/login': (context) => LoginForm(),
           // },
-        ));
+        );
   }
 }
 
