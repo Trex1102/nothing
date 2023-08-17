@@ -62,9 +62,9 @@ class _LoginFormState extends State<LoginForm> {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      
                                         builder: (context) =>
-                                            UserProfilePage()),
+                                            UserProfilePage(userRepository:
+                                                        widget.userRepository,)),
                                   );
                                 },
                                 child: const Text('OK'),

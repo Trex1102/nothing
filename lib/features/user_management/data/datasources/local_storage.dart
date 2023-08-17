@@ -70,13 +70,14 @@ class UserLocalStorage {
   }
 
   Future<UserModel> getCurrentUser() async {
-    final queryResult = await database.query(
+    // final queryResult = await database.query(
+    final List<Map<String, dynamic>> userMaps = await database.query(
       'users',
       where: 'isLoggedIn = ?',
       whereArgs: ['1'],
     );
-    if (queryResult.isNotEmpty) {
-      final userMap = queryResult.first;
+    if (userMaps.isNotEmpty) {
+      final userMap = userMaps.first;
       return UserModel.fromJson(userMap);
     } else {
       throw Exception('User profile not found local storage');

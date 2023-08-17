@@ -28,15 +28,6 @@ class UserDataSourceImpl implements UserDataSource {
     }
   }
 
-  // @override
-  // Future<void> updateUser(UserModel userModel) async {
-  //   try {
-  //     await localStorage.updateUser(userModel);
-  //   } catch (e) {
-  //     print('DatabaseException: $e');
-  //     throw DataSourceException();
-  //   }
-  // }
 
   @override
   Future<List<UserModel>> getAllUsers() async {

@@ -1,5 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:nothing/core/network/network_info_impl.dart';
 import 'package:nothing/core/test/add_expense_bloc_test.dart';
@@ -46,7 +46,7 @@ void main() async {
 
   //DatabaseInitializer.dropDatabase(database);
 
-  DatabaseInitializer.clearDatabase(database);
+  //DatabaseInitializer.clearDatabase(database);
 
   final getAllUsersUseCase = GetAllUsersUseCase(userRepository);
 
