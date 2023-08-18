@@ -26,7 +26,7 @@ class DatabaseInitializer {
             username TEXT UNIQUE,
             email TEXT UNIQUE,
             password TEXT UNIQUE,
-            UNIQUE (username, email, password)
+            isLoggedIn TEXT
           )
         ''');
         await db.execute('''
@@ -50,4 +50,16 @@ class DatabaseInitializer {
     await database.delete('users');
     //await database.delete('incomes');
   }
+
+  // static Future<void> dropDatabase(Database database) async {
+  //   await database.execute('''
+  //         CREATE TABLE users (
+  //           id TEXT PRIMARY KEY,
+  //           username TEXT UNIQUE,
+  //           email TEXT UNIQUE,
+  //           password TEXT UNIQUE,
+  //           isLoggedIn TEXT
+  //         )
+  //       ''');
+  // }
 }

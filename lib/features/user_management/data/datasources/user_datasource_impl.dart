@@ -28,6 +28,7 @@ class UserDataSourceImpl implements UserDataSource {
     }
   }
 
+
   @override
   Future<List<UserModel>> getAllUsers() async {
     try {
@@ -43,7 +44,7 @@ class UserDataSourceImpl implements UserDataSource {
     try {
       return localStorage.getCurrentUser();
     } catch (e) {
-      throw Exception('Failed to get user profile');
+      throw Exception('Failed to get user profile user datasource impl');
     }
   }
 

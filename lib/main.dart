@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+// import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:nothing/core/network/network_info_impl.dart';
 import 'package:nothing/core/test/add_expense_bloc_test.dart';
@@ -46,6 +47,8 @@ void main() async {
     networkInfo: networkInfo,
   );
 
+  //DatabaseInitializer.dropDatabase(database);
+
   //DatabaseInitializer.clearDatabase(database);
 
   final getAllUsersUseCase = GetAllUsersUseCase(userRepository);
@@ -57,6 +60,17 @@ void main() async {
     );
   });
 
+  // void printCurrentUser(UserEntity user) {
+  //   print('Current User:');
+  //   print('ID: ${user.id}');
+  //   print('Username: ${user.username}');
+  //   print('Email: ${user.email}');
+  //   print('isLoggedIn: ${user.isLoggedIn}');
+  // }
+
+  // final getCurrentUserUsecase = GetCurrentUserUsecase(userRepository);
+  // final currentUser = await getCurrentUserUsecase.call();
+  // printCurrentUser(currentUser);
   // void printCurrentUser(UserEntity user) {
   //   print('Current User:');
   //   print('ID: ${user.id}');
@@ -85,20 +99,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'FinTracker',
-        theme: ThemeData(
-          primarySwatch: Colors.amber,
-        ),
-        home: Scaffold(
-          body: HomepageExpenseScreen(),
+      title: 'FinTracker',
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
+      home:
+        //UserProfilePage(),
 
-          //UserProfileForm(userRepository: userRepository),
-
-          // LoginForm(userRepository: userRepository),
-
-          // RegisterForm(userRepository: userRepository),
-          //HomepageExpenseScreen()
-          //StatisticsScreen()
+          RegisterForm(userRepository: userRepository),
 
           //),
           // initialRoute: '/register',
@@ -106,6 +114,59 @@ class MyApp extends StatelessWidget {
           //   '/register': (context) => RegisterForm(),
           //   '/login': (context) => LoginForm(),
           // },
-        ));
+        );
   }
 }
+
+
+// import 'package:flutter/material.dart';
+
+// import 'features/expense_management/presentation/add_expense_presenter/widgets/show_amount_field.dart';
+
+// void main() {
+//   runApp(MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: Text('Show Amount Field Example'),
+//         ),
+//         body: Padding(
+//           padding: EdgeInsets.all(16),
+//           child: ShowAmountFieldWidget(),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class ShowAmountFieldWidget extends StatefulWidget {
+//   @override
+//   _ShowAmountFieldWidgetState createState() => _ShowAmountFieldWidgetState();
+// }
+
+// class _ShowAmountFieldWidgetState extends State<ShowAmountFieldWidget> {
+//   String amount = '100';
+//   String selectedCurrency = 'TK';
+//   List<String> currencyOptions = ['USD', 'EUR', 'GBP', 'TK'];
+
+//   void onCurrencyChanged(String? value) {
+//     setState(() {
+//       selectedCurrency = value ?? '';
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ShowAmountField(
+//       amount: amount,
+//       selectedCurrency: selectedCurrency,
+//       currencyOptions: currencyOptions,
+//       onCurrencyChanged: onCurrencyChanged,
+//     );
+//   }
+// }

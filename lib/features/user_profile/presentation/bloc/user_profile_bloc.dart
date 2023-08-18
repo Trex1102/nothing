@@ -8,36 +8,73 @@ import '../../../user_management/domain/entities/user_entity.dart';
 
 part 'user_profile_event.dart';
 part 'user_profile_state.dart';
+//
 
 class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   final GetCurrentUserUsecase getCurrentUserUsecase;
 
   UserProfileBloc({required this.getCurrentUserUsecase})
-      : super(UserProfileInitial()) {
-    on<FetchUserProfile>((event, emit) async {
-      await fetchUserProfile(event, emit);
-    });
+      : super(UserProfileInitial());
+
+  @override
+  Stream<UserProfileState> mapEventToState(UserProfileEvent event) async* {
+    if (event is UserProfileLoadEvent) {
+      yield* _mapUserProfileLoadEventToState();
+    }
   }
 
-  Future<void> fetchUserProfile(
-    FetchUserProfile event,
-    Emitter<UserProfileState> emit,
-  ) async {
+  Stream<UserProfileState> _mapUserProfileLoadEventToState() async* {
+    yield UserProfileLoading();
+    
     try {
-      final currentUser = await getCurrentUserUsecase.call();
-      // (failure) => emit(UserProfileError('Profile loading failed'));
-      // (_) => {
-      emit(UserProfileLoaded(currentUser));
-      print('Current User:');
-      print('ID: ${currentUser.id}');
-      print('Username: ${currentUser.username}');
-      print('Email: ${currentUser.email}');
-      //};
+      final user = await getCurrentUserUsecase.call();
+      if (user.isLoggedIn == 1) {
+        yield UserProfileLoaded(user);
+      } else {
+        yield UserProfileNotLoggedIn();
+      }
     } catch (e) {
-      emit(const UserProfileError('Profile loading failed'));
+      yield UserProfileError("Failed to load user profile");
     }
   }
 }
+
+
+
+
+
+
+// class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
+//   final GetCurrentUserUsecase getCurrentUserUsecase;
+
+//   UserProfileBloc({required this.getCurrentUserUsecase})
+//       : super(UserProfileInitial()) {
+//     on<FetchUserProfile>((event, emit) async {
+//       await fetchUserProfile(event, emit);
+//     });
+//   }
+
+//   Future<void> fetchUserProfile(
+//     FetchUserProfile event,
+//     Emitter<UserProfileState> emit,
+//   ) async {
+//     try {
+//       final currentUser = await getCurrentUserUsecase.call();
+//       // (failure) => emit(UserProfileError('Profile loading failed'));
+//       // (_) => {
+//       emit(UserProfileLoaded(currentUser));
+//       print('Current User:');
+//       print('ID: ${currentUser.id}');
+//       print('Username: ${currentUser.username}');
+//       print('Email: ${currentUser.email}');
+
+
+//       //};
+//     } catch (e) {
+//       emit(UserProfileError('Profile loading failed'));
+//     }
+//   }
+// }
 
 //
 

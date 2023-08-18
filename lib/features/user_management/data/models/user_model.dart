@@ -1,15 +1,16 @@
-
-class UserModel  {
+class UserModel {
   final String id;
   final String username;
   final String email;
   final String password;
+  final String isLoggedIn;
 
   UserModel({
     required this.id,
     required this.username,
     required this.email,
     required this.password,
+    required this.isLoggedIn,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -18,6 +19,7 @@ class UserModel  {
       username: json['username'],
       email: json['email'],
       password: json['password'],
+      isLoggedIn : json['isLoggedIn'],
     );
   }
 
@@ -27,6 +29,7 @@ class UserModel  {
       'username': username,
       'email': email,
       'password': password,
+      'isLoggedIn': isLoggedIn,
     };
   }
 }

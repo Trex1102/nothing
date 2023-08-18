@@ -63,10 +63,9 @@ class _LoginFormState extends State<LoginForm> {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          //UserProfileForm(userRepository: widget.userRepository,)
-                                          HomepageExpenseScreen(),
-                                    ),
+                                        builder: (context) =>
+                                            UserProfilePage(userRepository:
+                                                        widget.userRepository,)),
                                   );
                                 },
                                 child: const Text('OK'),
@@ -192,6 +191,7 @@ class _LoginFormState extends State<LoginForm> {
                                       username: '',
                                       email: _emailController.text,
                                       password: _passwordController.text,
+                                      isLoggedIn: '',
                                     ),
                                   ));
                                 },
