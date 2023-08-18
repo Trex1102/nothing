@@ -34,7 +34,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       print('Email: ${currentUser.email}');
       //};
     } catch (e) {
-      emit(UserProfileError('Profile loading failed'));
+      emit(const UserProfileError('Profile loading failed'));
     }
   }
 }
