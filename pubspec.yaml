@@ -48,6 +48,8 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   syncfusion_flutter_charts: ^21.2.9
   geolocator: ^9.0.2
+  # add flutter_screenutil
+  flutter_screenutil: ^5.8.4
 
 dev_dependencies:
   flutter_test:

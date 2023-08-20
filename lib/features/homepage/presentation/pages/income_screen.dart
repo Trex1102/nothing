@@ -51,10 +51,10 @@ class HomepageIncomeScreen extends StatelessWidget {
                 );
               } else if (index == 2) {
                 Navigator.pop(context);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => UserProfilePage()),
-                );
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => UserProfilePage(userRepository: null,)),
+                // );
               }
             },
           ),

@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NumpadWidget extends StatelessWidget {
   final Function(String) onKeyPressed;
 
-  const NumpadWidget({super.key, required this.onKeyPressed});
+  const NumpadWidget({Key? key, required this.onKeyPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // Initialize screenutil
+    ScreenUtil.init(
+      context,
+    );
+
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: EdgeInsets.symmetric(vertical: 6.h), // Use screenutil
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -21,7 +27,7 @@ class NumpadWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: EdgeInsets.symmetric(vertical: 6.h), // Use screenutil
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -32,7 +38,7 @@ class NumpadWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: EdgeInsets.symmetric(vertical: 6.h), // Use screenutil
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -42,9 +48,8 @@ class NumpadWidget extends StatelessWidget {
             ],
           ),
         ),
-
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: EdgeInsets.symmetric(vertical: 6.h), // Use screenutil
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -60,16 +65,16 @@ class NumpadWidget extends StatelessWidget {
 
   Widget _buildNumberButton(String number) {
     return Container(
-      width: 100,
-      height: 65,
+      width: 100.w, // Use screenutil
+      height: 65.h, // Use screenutil
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black, width: 1),
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(25.w), // Use screenutil
       ),
       child: MaterialButton(
         onPressed: () => onKeyPressed(number),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.w), // Use screenutil
         ),
         color: Colors.transparent,
         elevation: 0,
@@ -78,7 +83,10 @@ class NumpadWidget extends StatelessWidget {
         highlightElevation: 0,
         child: Text(
           number,
-          style: const TextStyle(fontFamily: 'MPlusRounded1C' , fontSize: 40),
+          style: TextStyle(
+            fontFamily: 'MPlusRounded1C',
+            fontSize: 40.sp, // Use screenutil
+          ),
         ),
       ),
     );
@@ -86,18 +94,18 @@ class NumpadWidget extends StatelessWidget {
 
   Widget _buildBackspaceButton() {
     return Container(
-      width: 100,
-      height: 65,
+      width: 100.w, // Use screenutil
+      height: 65.h, // Use screenutil
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black, width: 1),
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(25.w), // Use screenutil
         color: Colors.amber,
       ),
       child: IconButton(
-        icon: const Icon(Icons.backspace),
+        icon: Icon(Icons.backspace),
         onPressed: () => onKeyPressed('backspace'),
         color: Colors.black,
-        iconSize: 40,
+        iconSize: 40.sp, // Use screenutil
       ),
     );
   }

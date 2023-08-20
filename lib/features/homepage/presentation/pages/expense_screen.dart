@@ -53,10 +53,10 @@ class HomepageExpenseScreen extends StatelessWidget {
               );
             } else if (index == 2) {
               Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => UserProfilePage()),
-              );
+              // Navigator.push(
+              //   context,
+              //   //MaterialPageRoute(builder: (context) => UserProfilePage(userRepository: null,)),
+              // );
             }
           },
         ),

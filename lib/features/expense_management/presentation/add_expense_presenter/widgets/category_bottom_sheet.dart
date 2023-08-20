@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import the package
 import '../../../domain/entities/category_entity.dart';
 
 class CategoryBottomSheet extends StatelessWidget {
@@ -12,14 +13,19 @@ class CategoryBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Initialize screenutil
+    ScreenUtil.init(
+      context,
+    );
+
     return Container(
-      height: MediaQuery.of(context).size.height * 0.4,
-      padding: EdgeInsets.all(16),
+      height: 0.4.sh, // Use screenutil to adapt to screen height
+      padding: EdgeInsets.all(16.w), // Use screenutil for padding
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
+          crossAxisSpacing: 16.w, // Use screenutil for spacing
+          mainAxisSpacing: 16.h, // Use screenutil for spacing
         ),
         itemCount: categories.length,
         itemBuilder: (context, index) {
@@ -31,7 +37,7 @@ class CategoryBottomSheet extends StatelessWidget {
             },
             child: Icon(
               category.icon,
-              size: 48,
+              size: 48.sp, // Use screenutil for icon size
               color: Colors.black,
             ),
           );
