@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import the package
-import '../widgets/add_note_textfield.dart';
-import '../widgets/numpad_widget.dart';
-import '../widgets/show_amount_field.dart';
+import '../../../../expense_management/presentation/add_expense_presenter/widgets/add_note_textfield.dart';
+import '../../../../expense_management/presentation/add_expense_presenter/widgets/numpad_widget.dart';
+import '../../../../expense_management/presentation/add_expense_presenter/widgets/show_amount_field.dart';
 import '../../../domain/entities/category_entity.dart';
 import '../widgets/category_bottom_sheet.dart';
 
-class AddExpenseScreen extends StatefulWidget {
+
+class AddIncomeScreen extends StatefulWidget {
   @override
-  _AddExpenseScreenState createState() => _AddExpenseScreenState();
+  _AddIncomeScreenState createState() => _AddIncomeScreenState();
 }
 
-class _AddExpenseScreenState extends State<AddExpenseScreen> {
+class _AddIncomeScreenState extends State<AddIncomeScreen> {
   String weatherIcon = "sunny";
   DateTime currentDate = DateTime.now();
   String selectedCurrency = "USD";
@@ -48,7 +49,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "New Expense",
+              "New Income",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18.sp, // Use screenutil to adapt font size
@@ -160,7 +161,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
       ),
       builder: (BuildContext context) {
         return CategoryBottomSheet(
-          categories: predefinedCategories,
+          categories: predefinedIncomeCategories,
           onCategorySelected: (category) {
             setState(() {
               selectedCategory = category;
@@ -174,6 +175,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
 void main() {
   runApp(MaterialApp(
-    home: AddExpenseScreen(),
+    home: AddIncomeScreen(),
   ));
 }
