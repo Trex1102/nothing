@@ -14,10 +14,10 @@ class AddExpenseScreen extends StatefulWidget {
 class _AddExpenseScreenState extends State<AddExpenseScreen> {
   String weatherIcon = "sunny";
   DateTime currentDate = DateTime.now();
-  String selectedCurrency = "USD";
+  String selectedCurrency = "TK";
   String amount = "0";
   CategoryEntity? selectedCategory;
-  List<String> currencyOptions = ["USD", "EUR", "GBP", "TK"];
+  List<String> currencyOptions = ["USD", "EUR", "TK"];
   TextEditingController noteController = TextEditingController();
 
   @override

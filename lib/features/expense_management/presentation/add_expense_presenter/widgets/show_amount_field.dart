@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluentui_icons/fluentui_icons.dart';
 
 class ShowAmountField extends StatelessWidget {
   final String amount;
@@ -32,6 +33,10 @@ class ShowAmountField extends StatelessWidget {
           iconSize: 35.sp, // Use screenutil for icon size
           underline: Container(),
           dropdownColor: Colors.white,
+          icon: const Icon(
+            Icons.arrow_drop_down, // Use the built-in dropdown arrow icon
+            color: Colors.black, // Set the arrow color to amber
+          ),
         ),
         Text(
           amount,
@@ -55,17 +60,33 @@ class ShowAmountField extends StatelessWidget {
   }
 
   Widget _buildCurrencyIcon(String currency) {
+    String iconPath = '';
+
     switch (currency) {
       case 'USD':
-        return FaIcon(FontAwesomeIcons.dollarSign, color: Colors.black, size: 30.sp); // Use screenutil for icon size
+        iconPath =
+            'assets/icons/usd.png'; // Replace with the path to your custom USD icon
+        break;
       case 'EUR':
-        return FaIcon(FontAwesomeIcons.euroSign, color: Colors.black, size: 30.sp); // Use screenutil for icon size
-      case 'GBP':
-        return FaIcon(FontAwesomeIcons.sterlingSign, color: Colors.black, size: 30.sp); // Use screenutil for icon size
+        iconPath =
+            'assets/icons/euro.png'; // Replace with the path to your custom EUR icon
+        break;
       case 'TK':
-        return FaIcon(FontAwesomeIcons.bangladeshiTakaSign, color: Colors.black, size: 30.sp); // Use screenutil for icon size
+        iconPath =
+            'assets/icons/taka.png'; // Replace with the path to your custom TK icon
+        break;
       default:
-        return FaIcon(FontAwesomeIcons.bangladeshiTakaSign, color: Colors.black, size: 30.sp); // Use screenutil for icon size
+        iconPath =
+            'assets/icons/taka.png'; // Replace with a default icon or an empty icon
+        break;
     }
+
+    // Load the icon as an Image widget
+    return Image.asset(
+      iconPath,
+      color: Colors.black, // Customize the icon color as needed
+      width: 40.sp, // Use screenutil for icon size
+      height: 40.sp, // Use screenutil for icon size
+    );
   }
 }
