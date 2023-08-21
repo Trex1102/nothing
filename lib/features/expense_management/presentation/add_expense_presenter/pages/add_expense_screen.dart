@@ -52,6 +52,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18.sp, // Use screenutil to adapt font size
+                fontFamily: 'MPlusRounded1c',
+                fontWeight: FontWeight.bold
               ),
             ),
           ],
