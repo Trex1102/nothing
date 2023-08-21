@@ -2,43 +2,44 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../../core/network/network_info.dart';
 import '../../../../../core/network/network_info_impl.dart';
 import '../../../../common/presentation/widgets/custom_text_styles.dart';
-import '../../../data/datasources/expense_datasource.dart';
 import '../../../data/datasources/expense_datasource_impl.dart';
 import '../../../data/datasources/local_storage.dart';
 import '../../../data/repositories/expense_repository_impl.dart';
 import '../../../domain/usecases/get_expense_by_id.dart';
 import '../bloc/get_expense_by_id_bloc.dart';
-import 'view_expense_upper_navbar.dart';
 import '../../../../../core/database/database_initializer.dart';
+import 'package:intl/intl.dart';
 
 class ShowDate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String formattedDate = DateFormat('d MMMM, y').format(DateTime.now());
+
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 70.0, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 70.0, horizontal: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            width: 180,
+            width: 250,
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: const Color.fromRGBO(217, 217, 217, 1),
             ),
-            child: Text(
-              '6 April, 2023',
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: GoogleFonts.mPlusRounded1c().fontFamily,
-                fontWeight: FontWeight.bold,
+            child: Center(
+              child: Text(
+                formattedDate,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: GoogleFonts.mPlusRounded1c().fontFamily,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-          const Icon(Icons.cloud),
         ],
       ),
     );
@@ -54,7 +55,6 @@ class ExpenseDetails extends StatelessWidget {
     final database = await DatabaseInitializer.initDatabase();
     final localStorage = LocalStorage(database);
     final expenseDataSource = ExpenseDataSourceImpl(localStorage);
-
     final connectivity = Connectivity();
     final networkInfo = NetworkInfoImpl(connectivity);
 
@@ -78,7 +78,7 @@ class ExpenseDetails extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // While waiting for initialization, show a loading indicator or placeholder
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           } else if (snapshot.hasError) {
             // If an error occurs during initialization, handle it appropriately
             return Text('Error: ${snapshot.error}');
@@ -93,7 +93,7 @@ class ExpenseDetails extends StatelessWidget {
                         'Failed to initialize GetExpenseByIdBloc'),
                 child: Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(vertical: 300),
+                  padding: const EdgeInsets.symmetric(vertical: 300),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -126,7 +126,7 @@ class ExpenseDetails extends StatelessWidget {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 5.0),
                                       child: Text(
-                                        ":",
+                                        " ",
                                         style: customTextStyle.labelTextStyle,
                                       ),
                                     ),
@@ -160,46 +160,12 @@ class ExpenseDetails extends StatelessWidget {
                                           } else {
                                             // Handle loading or failure state
                                             return Text(
-                                              "Loading...",
+                                              " Loading...",
                                               style: CustomTextStyle
                                                   .defaultTextStyle,
                                             );
                                           }
                                         },
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 5.0),
-                                      child: Text(
-                                        "Amount",
-                                        style: customTextStyle.labelTextStyle,
-                                      ),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 5.0),
-                                      child: Text(
-                                        ":",
-                                        style: customTextStyle.labelTextStyle,
-                                      ),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 5.0),
-                                      child: Text(
-                                        " 500",
-                                        style: CustomTextStyle.defaultTextStyle,
                                       ),
                                     ),
                                   ),
@@ -219,7 +185,7 @@ class ExpenseDetails extends StatelessWidget {
                                   ),
                                   TableCell(
                                     child: Text(
-                                      ":",
+                                      " ",
                                       style: customTextStyle.labelTextStyle,
                                     ),
                                   ),
@@ -249,7 +215,7 @@ class ExpenseDetails extends StatelessWidget {
                                   ),
                                   TableCell(
                                     child: Text(
-                                      ":",
+                                      " ",
                                       style: customTextStyle.labelTextStyle,
                                     ),
                                   ),
@@ -279,7 +245,7 @@ class ExpenseDetails extends StatelessWidget {
                                   ),
                                   TableCell(
                                     child: Text(
-                                      ":",
+                                      " ",
                                       style: customTextStyle.labelTextStyle,
                                     ),
                                   ),
@@ -311,7 +277,7 @@ class ExpenseDetails extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 5.0),
                                     child: Text(
-                                      ":",
+                                      " ",
                                       style: customTextStyle.labelTextStyle,
                                     ),
                                   ),
