@@ -23,9 +23,15 @@ class AddNoteTextField extends StatelessWidget {
               primarySwatch: Colors.amber, // Set the primary color to amber
             ),
             child: TextFormField(
-              decoration: const InputDecoration(
-                border: UnderlineInputBorder(),
+              decoration: InputDecoration(
+                border: const UnderlineInputBorder(),
                 labelText: 'Add Note',
+                labelStyle: TextStyle(
+                  fontSize: 13.sp, // Adjust font size
+                  color: Colors.black, // Adjust text color
+                  fontFamily: 'MPlusRounded1c',
+                ),
+                contentPadding: const EdgeInsets.only(bottom: 0.0), // Adjust the padding to reduce the distance
               ),
             ),
           ),
