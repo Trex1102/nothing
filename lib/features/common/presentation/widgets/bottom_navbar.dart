@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nothing/core/test/delete_expense_bloc_test.dart';
-import 'package:nothing/features/statistics/presentation/pages/statistics_screen.dart';
-import 'package:nothing/features/user_profile/presentation/bloc/user_profile_bloc.dart';
-import 'package:nothing/features/user_profile/presentation/widgets/user_profile_form.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final int currentIndex;

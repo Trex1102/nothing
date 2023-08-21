@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:nothing/features/common/presentation/widgets/custom_text_styles.dart';
 import 'package:nothing/features/common/presentation/widgets/datemanagement.dart';
 
