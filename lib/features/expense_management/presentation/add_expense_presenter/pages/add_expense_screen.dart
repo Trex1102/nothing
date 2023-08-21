@@ -78,7 +78,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
           ),
           SizedBox(height: 10.h),
           AddNoteTextField(controller: noteController),
-          SizedBox(height: 40.h),
+          SizedBox(height: 60.h),
           Padding(
             padding: EdgeInsets.only(left: 275.w),
             child: GestureDetector(
@@ -92,6 +92,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               ),
             ),
           ),
+          SizedBox(height: 10.h),
           Padding(
             padding: EdgeInsets.only(right: 20.w, left: 20.w),
             child: ElevatedButton.icon(
